@@ -1,0 +1,43 @@
+{
+  "name": "strawberry_pimp_back",
+  "version": "1.0.0",
+  "description": "best back of strawberry pimp. dont look at it for too long or you will blow your mind!",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "nodemon strawberry_pimp_back.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stepancar-web-programming/strawberry_pimp.git"
+  },
+  "keywords": [
+    "pimp",
+    "strawberry",
+    "blue_beard",
+    "backend",
+    "cool",
+    "dj",
+    "mamba",
+    "brazil",
+    "dance",
+    "lmfao",
+    "sorry"
+  ],
+  "author": "Beast Team (Polina Destroyer, Yaroslav The Cabbage, Ilya Transformer)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stepancar-web-programming/strawberry_pimp/issues"
+  },
+  "homepage": "https://github.com/stepancar-web-programming/strawberry_pimp#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.11.7",
+    "@vue/cli": "^4.5.15",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
