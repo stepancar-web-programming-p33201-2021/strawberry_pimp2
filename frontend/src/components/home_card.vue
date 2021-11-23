@@ -1,50 +1,36 @@
 <template>
-  <div :class="homeCardStyle">test</div>
+  <div class="homeCardStyle">test</div>
+  <!--
+   TODO:
+   1. button write to this man
+   2. carousel with images of smth
+   3. some special info that could be shown only after authorization/if not authoirized we can show, but encrypted
+   -->
 </template>
+
+<style>
+.homeCardStyle {
+  /*noinspection CssInvalidFunction*/
+  width: v-bind("vwidth()");
+}
+</style>
 
 <script lang="ts">
 import {defineComponent} from "vue";
 
+
 const kWidth = 0.3;
 const kHeight = 0.3;
 
-class HomeCardStyle {
-  private _vwidth: number = 0;
-  private _vheight: number = 0;
-
-  get width(): string {
-    return this._vwidth + 'px';
-  }
-
-  set vwidth(input: number | string) {
-    if (typeof input === typeof 0) {
-      this._vwidth = input as number;
-    }
-  }
-
-  set vheight(input: number | string) {
-    if (typeof input === typeof 0) {
-      this._vheight = input as number;
-    }
-  }
-
-  get height(): string {
-    return this._vheight + 'px';
-  }
-
-  constructor(width: number, height: number) {
-    this.vwidth = width;
-    this.vheight = height;
-  }
-
+interface HomeCardStyle {
+  width: number | undefined;
+  height: number | undefined;
 }
 
-
 const homeCardMixin = defineComponent({
-  data: function () {
-    let homeCardStyle = new HomeCardStyle(this.calculateWidth(), this.calculateHeight());
+  data() {
     return {
-      homeCardStyle,
+      homeCardStyle: {width: 0, height: 0} as HomeCardStyle,
     };
   },
   methods: {
@@ -53,17 +39,20 @@ const homeCardMixin = defineComponent({
       this.calculateHeight();
     },
     calculateWidth(): number {
-      this.homeCardStyle.vwidth = window.innerWidth * kWidth;
-      console.log(this.homeCardStyle.vwidth);
-      return this.homeCardStyle.vwidth;
+      this.homeCardStyle.width = window.innerWidth * kWidth;
+      return this.homeCardStyle.width;
     },
     calculateHeight(): number {
-      this.homeCardStyle.vheight = window.innerHeight * kHeight;
-      return this.homeCardStyle.vheight;
+      this.homeCardStyle.height = window.innerHeight * kHeight;
+      return this.homeCardStyle.height;
     },
+    vwidth(): string {
+      return this.homeCardStyle.width as number + 'px';
+    }
   },
   created() {
     window.addEventListener("resize", this.onResize);
+    this.onResize();
   },
   unmounted() {
     window.removeEventListener("resize", this.onResize);
@@ -73,7 +62,15 @@ const homeCardMixin = defineComponent({
 export default defineComponent({
   name: "home_card",
   mixins: [homeCardMixin],
+  props: {
+    ///TODO replace with simpler model from backend
+    images: {type: Array, default: () => ['/img/logo.82b9c7a5.png']},
+    price: {type: Number},///in$ with cents
+    realFullName: {type: String},
+    nickname: {type: String},
+    description: {type: String},
+    totalWorkTime: {type:String}
+  }
 });
 </script>
 
-<style scoped></style>
