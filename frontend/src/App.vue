@@ -1,17 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png"/>
-  <HomeCard></HomeCard>
-  <HomeCard></HomeCard>
+  <n-message-provider>
+
+    <HomeComponent></HomeComponent>
+
+  </n-message-provider>
+
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import HomeCard from "./components/home_card.vue";
+import HomeComponent from "./components/home_components/home_component.vue";
+import {NMessageProvider} from "naive-ui";
 
 export default defineComponent({
   name: "App",
   components: {
-    HomeCard,
+    HomeComponent,
+    NMessageProvider
   },
 });
 </script>
@@ -23,6 +28,6 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 16px;
 }
 </style>
