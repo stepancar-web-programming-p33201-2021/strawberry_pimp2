@@ -19,8 +19,8 @@
         </n-gi>
       </n-grid>
       <template #title>
-        <a href="https://anyway.fm/" style="text-decoration: none; color: inherit;">
-          Anyway.FM
+        <a href="/" style="text-decoration: none; color: inherit;">
+          StrawberryPimp
         </a>
       </template>
       <template #header>
@@ -33,7 +33,7 @@
       </template>
       <template #avatar>
         <n-avatar
-            src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg"
+            :src="requireImage(icons.MAIN_ICON)"
         />
       </template>
       <template #extra>
@@ -71,6 +71,9 @@ import {
   NStatistic,
   useMessage
 } from "naive-ui";
+import {icons, requireImage} from "@/utils/constants";
+
+
 
 
 const HomeComponent = defineComponent({
@@ -79,6 +82,14 @@ const HomeComponent = defineComponent({
     NPageHeader, NGrid, NGi, NDropdown, NButton, NBreadcrumb,
     NBreadcrumbItem,
     NStatistic, NAvatar,
+  },
+  data() {
+    return {
+      icons
+    };
+  },
+  methods:{
+    requireImage
   },
   setup() {
     const message = useMessage()
