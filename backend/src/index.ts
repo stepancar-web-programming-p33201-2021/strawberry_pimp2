@@ -1,13 +1,28 @@
-import express from 'express';
+import {app} from "./server/app";
+import mongoose from 'mongoose';
+import {dbConstants, funnyComments, typicalDefaults} from "./utils/constants";
+import {google} from 'googleapis';
+import {router} from "./server/router";
+import {print} from "./utils/utils";
+import {initializeApp} from "firebase-admin/app";
+import {credential} from "firebase-admin";
 
-const app = express();
+
 const port = 999;
+const serviceAccount = require("config/fbp_strawberrypimp_key.json");
 
-function main() {
-    console.log('Hi! Starting backend... on beauty port: 999')
-    console.log(`https://127.0.0.1:${port}`)
+async function main() {
+    print(funnyComments.startComment + port)
+    print(`${typicalDefaults.localHostUrl}:${port}`)
+    await mongoose.connect(`${dbConstants.localHostMongo}/${dbConstants.mainDB}`);
+    await initializeApp({
+        credential: credential.cert(serviceAccount),
+    });
+    router(app);
+    app.listen(port, () => {
+        print(`StrawberryPimp app listening at http://localhost:${port}`)
+    })
 }
 
-
 ///Starting main :)
-main();
+let promise = main();

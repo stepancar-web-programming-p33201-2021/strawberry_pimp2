@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import HomeComponent from "./components/home_components/home_component.vue";
+import HomeComponent from "./home_components/home_component.vue";
 import {NMessageProvider} from "naive-ui";
 
 export default defineComponent({

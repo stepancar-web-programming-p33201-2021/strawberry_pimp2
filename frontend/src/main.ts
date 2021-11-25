@@ -1,4 +1,11 @@
 import {createApp} from "vue";
-import App from "./App.vue";
+import App from "./components/App.vue";
+import {store} from "@/store/store";
+import firebase from "firebase/compat";
+import {firebaseConfig} from "@/utils/constants";
 
-createApp(App).mount("#app");
+
+firebase.initializeApp(firebaseConfig);
+const app = createApp(App);
+app.use(store);
+app.mount("#app");
