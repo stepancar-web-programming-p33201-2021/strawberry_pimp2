@@ -1,6 +1,6 @@
 <template>
   <div class="homePageStyle">
-    <n-page-header subtitle="A podcast to improve designs" @back="handleBack">
+    <n-page-header :subtitle="stringResources.HEADER_SUBTITLE">
       <n-grid :cols="5">
         <n-gi>
           <n-statistic label="Episodes" value="125"/>
@@ -38,13 +38,10 @@
       </template>
       <template #extra>
         <n-space>
-          <n-button>Refresh</n-button>
-          <n-dropdown :options="options" placement="bottom-start">
-            <n-button :bordered="false" style="padding: 0 4px">···</n-button>
-          </n-dropdown>
+          <user-button-component></user-button-component>
         </n-space>
       </template>
-      <template #footer>As of April 3, 2021</template>
+      <template #footer>{{ isAuthorized }}</template>
     </n-page-header>
   </div>
 
@@ -63,33 +60,38 @@ import {
   NAvatar,
   NBreadcrumb,
   NBreadcrumbItem,
-  NButton,
-  NDropdown,
   NGi,
   NGrid,
   NPageHeader,
   NStatistic,
   useMessage
 } from "naive-ui";
-import {icons, requireImage} from "@/utils/constants";
-
-
+import {icons, requireImage, stringResources} from "@/utils/constants";
+import {store} from "@/store/store";
+import userButtonComponent from "./user_button_component.vue";
 
 
 const HomeComponent = defineComponent({
   name: "home_component",
   components: {
-    NPageHeader, NGrid, NGi, NDropdown, NButton, NBreadcrumb,
+    NPageHeader, NGrid, NGi, NBreadcrumb,
     NBreadcrumbItem,
     NStatistic, NAvatar,
+    userButtonComponent
   },
   data() {
     return {
-      icons
+      icons,
+      stringResources
     };
   },
-  methods:{
+  methods: {
     requireImage
+  },
+  computed: {
+    isAuthorized() {
+      return store.getters.isAuthorized;
+    }
   },
   setup() {
     const message = useMessage()

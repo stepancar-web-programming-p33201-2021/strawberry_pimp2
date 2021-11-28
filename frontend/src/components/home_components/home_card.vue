@@ -108,11 +108,11 @@ export default defineComponent({
   data() {
     return {
       carousels: [
-        {text: 'Slide 1', color: 'primary'},
-        {text: 'Slide 2', color: 'info'},
-        {text: 'Slide 3', color: 'success'},
-        {text: 'Slide 4', color: 'warning'},
-        {text: 'Slide 5', color: 'danger'}
+        {contents: 'Slide 1', color: 'primary'},
+        {contents: 'Slide 2', color: 'info'},
+        {contents: 'Slide 3', color: 'success'},
+        {contents: 'Slide 4', color: 'warning'},
+        {contents: 'Slide 5', color: 'danger'}
       ]
     }
   },
