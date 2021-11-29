@@ -1,7 +1,4 @@
 module.exports = {
-  configureWebpack: {
-    plugins: [],
-  },
   // module: {
   //     rules: [
   //         {
@@ -17,4 +14,19 @@ module.exports = {
   //             loader: 'vue-loader',
   //         }]
   // }
+  configureWebpack: {
+    plugins: [],
+  },
+
+  pluginOptions: {
+    i18n: {
+      locale: "en",
+      fallbackLocale: "en",
+      localeDir: "locales",
+      enableLegacy: false,
+      runtimeOnly: false,
+      compositionOnly: false,
+      fullInstall: true,
+    },
+  },
 };

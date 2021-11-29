@@ -1,14 +1,14 @@
 <template>
   <n-modal :show="showModal">
-
     <n-card
-        :title="title()"
-        closable @close="close"
-        size="small"
-        :segmented="{
-    content: 'hard',
-    footer: 'soft'
-  }"
+      :title="title()"
+      closable
+      @close="close"
+      size="small"
+      :segmented="{
+        content: 'hard',
+        footer: 'soft',
+      }"
     >
       <template #header-extra> #header-extra</template>
       Card Content
@@ -28,25 +28,25 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from "vue";
+import { defineComponent, ref } from "vue";
 
-import {waitTillActionAndComplete} from "@/utils/utils";
-import {NModal} from "naive-ui";
-import {store} from "@/store/store";
+import { waitTillActionAndComplete } from "@/utils/utils";
+import { NModal } from "naive-ui";
+import { store } from "@/store/store";
 
 const UserProfileComponent = defineComponent({
   components: {
-    NModal
+    NModal,
   },
   name: "user_profile_component",
-  methods:{
-    title(){
+  methods: {
+    title() {
       return store.state.userName;
-    }
+    },
   },
   setup() {
-    const showModalRef = ref(false)
-    const timeoutRef = ref(6000)
+    const showModalRef = ref(false);
+    const timeoutRef = ref(6000);
 
     // const countdown = () => {
     //   if (timeoutRef.value <= 0) {
@@ -57,29 +57,27 @@ const UserProfileComponent = defineComponent({
     //   }
     // }
     const close = () => {
-      showModalRef.value = false
-    }
+      showModalRef.value = false;
+    };
 
     const handleClick = () => {
-      showModalRef.value = true
-      timeoutRef.value = 6000
+      showModalRef.value = true;
+      timeoutRef.value = 6000;
 
-     // countdown()
-    }
-    waitTillActionAndComplete('openUserProfile', handleClick);
+      // countdown()
+    };
+    waitTillActionAndComplete("openUserProfile", handleClick);
 
     return {
       showModal: showModalRef,
       timeout: timeoutRef,
       handleClick,
-      close
-    }
-  }
+      close,
+    };
+  },
 });
 
-
-export default UserProfileComponent
-
+export default UserProfileComponent;
 </script>
 
 <style scoped>
@@ -87,5 +85,3 @@ export default UserProfileComponent
   max-width: 45%;
 }
 </style>
-
-

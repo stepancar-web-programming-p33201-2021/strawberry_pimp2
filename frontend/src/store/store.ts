@@ -1,20 +1,24 @@
 import {createStore} from "vuex";
 import firebase from "firebase/compat";
 import {stringResources} from "@/utils/constants";
-import {getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged} from "firebase/auth";
+import {
+    getAuth,
+    signInWithPopup,
+    GoogleAuthProvider,
+    onAuthStateChanged,
+} from "firebase/auth";
 
 enum AuthState {
     anonymous,
     loading,
-    signed
+    signed,
 }
 
 class StateModel {
-    fToken: string = '';
+    fToken: string = "";
     authState: AuthState = AuthState.loading;
     userName: string = stringResources.ANONYMOUS;
 }
-
 
 const store = createStore({
     state: new StateModel(),
@@ -24,24 +28,26 @@ const store = createStore({
         },
         authWith(state, authState: AuthState) {
             state.authState = authState;
-        }
+        },
     },
     actions: {
         async signIn(context) {
-            context.commit("authWith", AuthState.loading)
+            context.commit("authWith", AuthState.loading);
             const auth = getAuth();
             onAuthStateChanged(auth, (user) => {
                 if (user) {
-                    context.commit("updateUserInfo", {userName: user.displayName})
-                    context.commit("authWith", AuthState.signed)
+                    context.commit("updateUserInfo", {userName: user.displayName});
+                    context.commit("authWith", AuthState.signed);
                 } else {
-                    context.commit("updateUserInfo", {userName: stringResources.ANONYMOUS})
-                    context.commit("authWith", AuthState.anonymous)
+                    context.commit("updateUserInfo", {
+                        userName: stringResources.ANONYMOUS,
+                    });
+                    context.commit("authWith", AuthState.anonymous);
                 }
             });
         },
         async authWithGoogle(context) {
-            context.commit("authWith", AuthState.loading)
+            context.commit("authWith", AuthState.loading);
             const provider = new GoogleAuthProvider();
             const auth = getAuth();
             await signInWithPopup(auth, provider)
@@ -50,9 +56,10 @@ const store = createStore({
                     if (credential !== null) {
                         return firebase.auth().signInWithCredential(credential);
                     }
-                }).catch((error) => {
+                })
+                .catch((error) => {
                 });
-            await context.dispatch("signIn")
+            await context.dispatch("signIn");
         },
 
         openUserProfile() {
@@ -68,7 +75,7 @@ const store = createStore({
             }
         },
     },
-    getters: {}
+    getters: {},
 });
 
-export {store, AuthState}
+export {store, AuthState};

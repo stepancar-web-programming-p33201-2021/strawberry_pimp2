@@ -1,27 +1,30 @@
 <template>
   <n-dialog-provider>
     <n-message-provider>
-      <HomeComponent></HomeComponent>
+<!--      <HomeComponent></HomeComponent>-->
+      <HelloI18N></HelloI18N>
     </n-message-provider>
   </n-dialog-provider>
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
-import HomeComponent from "./home_components/home_component.vue";
-import {NMessageProvider} from "naive-ui";
-import {useStore} from "vuex";
+import { defineComponent } from "vue";
+// import HomeComponent from "./home_components/home_component.vue";
+import { NMessageProvider } from "naive-ui";
+import { useStore } from "vuex";
+import HelloI18N from "@/components/HelloI18n.vue";
 
 export default defineComponent({
   name: "App",
   components: {
-    HomeComponent,
+    // HomeComponent,
     NMessageProvider,
+    HelloI18N,
   },
   setup() {
-    const store = useStore()
-    store.dispatch("signIn")
-  }
+    const store = useStore();
+    store.dispatch("signIn");
+  },
 });
 </script>
 

@@ -4,20 +4,20 @@
       <template #cover>
         <n-carousel autoplay>
           <img
-              class="carousel-img"
-              src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel1.jpeg"
+            class="carousel-img"
+            src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel1.jpeg"
           />
           <img
-              class="carousel-img"
-              src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg"
+            class="carousel-img"
+            src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg"
           />
           <img
-              class="carousel-img"
-              src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg"
+            class="carousel-img"
+            src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg"
           />
           <img
-              class="carousel-img"
-              src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg"
+            class="carousel-img"
+            src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg"
           />
         </n-carousel>
       </template>
@@ -30,8 +30,6 @@
       </n-gradient-text>
       <n-button type="primary">Primary</n-button>
     </n-card>
-
-
   </div>
   <!--
    TODO:
@@ -56,8 +54,8 @@
 </style>
 
 <script lang="ts">
-import {defineComponent} from "vue";
-import {NButton, NCarousel, NGradientText, NCard} from 'naive-ui'
+import { defineComponent } from "vue";
+import { NButton, NCarousel, NGradientText, NCard } from "naive-ui";
 
 const kWidth = 0.3;
 const kHeight = 0.3;
@@ -70,7 +68,7 @@ interface HomeCardStyle {
 const homeCardMixin = defineComponent({
   data() {
     return {
-      homeCardStyle: {width: 0, height: 0} as HomeCardStyle,
+      homeCardStyle: { width: 0, height: 0 } as HomeCardStyle,
     };
   },
   methods: {
@@ -87,8 +85,8 @@ const homeCardMixin = defineComponent({
       return this.homeCardStyle.height;
     },
     vwidth(): string {
-      return this.homeCardStyle.width as number + 'px';
-    }
+      return (this.homeCardStyle.width as number) + "px";
+    },
   },
   created() {
     window.addEventListener("resize", this.onResize);
@@ -103,28 +101,30 @@ export default defineComponent({
   name: "home_card",
   mixins: [homeCardMixin],
   components: {
-    NButton, NCarousel, NCard, NGradientText
+    NButton,
+    NCarousel,
+    NCard,
+    NGradientText,
   },
   data() {
     return {
       carousels: [
-        {contents: 'Slide 1', color: 'primary'},
-        {contents: 'Slide 2', color: 'info'},
-        {contents: 'Slide 3', color: 'success'},
-        {contents: 'Slide 4', color: 'warning'},
-        {contents: 'Slide 5', color: 'danger'}
-      ]
-    }
+        { contents: "Slide 1", color: "primary" },
+        { contents: "Slide 2", color: "info" },
+        { contents: "Slide 3", color: "success" },
+        { contents: "Slide 4", color: "warning" },
+        { contents: "Slide 5", color: "danger" },
+      ],
+    };
   },
   props: {
     ///TODO replace with simpler model from backend
-    images: {type: Array, default: () => ['/img/logo.82b9c7a5.png']},
-    price: {type: Number},///in$ with cents
-    realFullName: {type: String},
-    nickname: {type: String},
-    description: {type: String},
-    totalWorkTime: {type: String}
-  }
+    images: { type: Array, default: () => ["/img/logo.82b9c7a5.png"] },
+    price: { type: Number }, ///in$ with cents
+    realFullName: { type: String },
+    nickname: { type: String },
+    description: { type: String },
+    totalWorkTime: { type: String },
+  },
 });
 </script>
-

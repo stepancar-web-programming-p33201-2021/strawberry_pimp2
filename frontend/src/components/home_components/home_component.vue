@@ -3,23 +3,23 @@
     <n-page-header :subtitle="stringResources.HEADER_SUBTITLE">
       <n-grid :cols="5">
         <n-gi>
-          <n-statistic label="Episodes" value="125"/>
+          <n-statistic label="Episodes" value="125" />
         </n-gi>
         <n-gi>
-          <n-statistic label="Guests" value="22"/>
+          <n-statistic label="Guests" value="22" />
         </n-gi>
         <n-gi>
-          <n-statistic label="Apologies" value="36"/>
+          <n-statistic label="Apologies" value="36" />
         </n-gi>
         <n-gi>
-          <n-statistic label="Topics" value="83"/>
+          <n-statistic label="Topics" value="83" />
         </n-gi>
         <n-gi>
-          <n-statistic label="Reference Links" value="2,346"/>
+          <n-statistic label="Reference Links" value="2,346" />
         </n-gi>
       </n-grid>
       <template #title>
-        <a href="/" style="text-decoration: none; color: inherit;">
+        <a href="/" style="text-decoration: none; color: inherit">
           StrawberryPimp
         </a>
       </template>
@@ -32,9 +32,7 @@
         </n-breadcrumb>
       </template>
       <template #avatar>
-        <n-avatar
-            :src="requireImage(icons.MAIN_ICON)"
-        />
+        <n-avatar :src="requireImage(icons.MAIN_ICON)" />
       </template>
       <template #extra>
         <n-space>
@@ -54,8 +52,7 @@
 </template>
 
 <script lang="ts">
-
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import {
   NAvatar,
   NBreadcrumb,
@@ -64,58 +61,60 @@ import {
   NGrid,
   NPageHeader,
   NStatistic,
-  useMessage
+  useMessage,
 } from "naive-ui";
-import {icons, requireImage, stringResources} from "@/utils/constants";
-import {store} from "@/store/store";
+import { icons, requireImage, stringResources } from "@/utils/constants";
+import { store } from "@/store/store";
 import userButtonComponent from "./user_button_component.vue";
-
 
 const HomeComponent = defineComponent({
   name: "home_component",
   components: {
-    NPageHeader, NGrid, NGi, NBreadcrumb,
+    NPageHeader,
+    NGrid,
+    NGi,
+    NBreadcrumb,
     NBreadcrumbItem,
-    NStatistic, NAvatar,
-    userButtonComponent
+    NStatistic,
+    NAvatar,
+    userButtonComponent,
   },
   data() {
     return {
       icons,
-      stringResources
+      stringResources,
     };
   },
   methods: {
-    requireImage
+    requireImage,
   },
   computed: {
     isAuthorized() {
       return store.getters.isAuthorized;
-    }
+    },
   },
   setup() {
-    const message = useMessage()
+    const message = useMessage();
     return {
       handleBack() {
-        message.info('[onBack]')
+        message.info("[onBack]");
       },
       options: [
         {
-          label: 'More episodes',
-          key: '1'
+          label: "More episodes",
+          key: "1",
         },
         {
-          label: 'More episodes',
-          key: '2'
+          label: "More episodes",
+          key: "2",
         },
         {
-          label: 'More episodes',
-          key: '3'
-        }
-      ]
-    }
-  }
-
+          label: "More episodes",
+          key: "3",
+        },
+      ],
+    };
+  },
 });
 
 export default HomeComponent;
