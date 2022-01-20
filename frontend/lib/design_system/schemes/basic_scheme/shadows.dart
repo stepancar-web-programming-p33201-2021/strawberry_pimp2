@@ -1,0 +1,3 @@
+class Shadows {
+  const Shadows();
+}

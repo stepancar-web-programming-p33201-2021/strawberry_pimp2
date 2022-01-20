@@ -9,7 +9,7 @@ import {credential} from "firebase-admin";
 
 
 const port = 999;
-const serviceAccount = require("config/fbp_strawberrypimp_key.json");
+const serviceAccount = require("./config/fbp_strawberrypimp_key.json");
 
 async function main() {
     print(funnyComments.startComment + port)

@@ -28,6 +28,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_in_google_ui_string":
             MessageLookupByLibrary.simpleMessage("Sign In with Google"),
         "welcome_ui_string": MessageLookupByLibrary.simpleMessage(
-            "Hello Stranger, looks like you need to sign in into your account...\n Pls, follow button below.")
+            "Hello Stranger, looks like you need to sign in into your account...\n Pls, follow button below."),
+        "your_chats_ui_string":
+            MessageLookupByLibrary.simpleMessage("Your Chats")
       };
 }

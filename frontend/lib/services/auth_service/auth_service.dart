@@ -1,11 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tinder/services/auth_service/auth_state.dart';
+import 'package:tinder/services/firebase_service/firebase_service.dart';
 
 class AuthService extends StateNotifier<AuthState> {
-  AuthService() : super(const AuthState.no());
+  AuthService(StateNotifierProviderRef ref) : super(const AuthState.no()) {
+    ///Init right after firebase would be init
+    ref.read(firebaseProvider.future).whenComplete(() {
+      _firebaseAuth = FirebaseAuth.instance;
+      if (isSignedIn()) {
+        state = const AuthState.ready();
+      }
+    });
+  }
 
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  late FirebaseAuth _firebaseAuth;
 
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
 

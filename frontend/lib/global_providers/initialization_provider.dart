@@ -1,7 +1,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tinder/services/auth_service/auth_providers.dart';
+import 'package:tinder/services/firebase_service/firebase_service.dart';
+import 'package:tinder/services/supabase_service/supabase_service.dart';
 
 final initializationProvider = Provider<void>((ref) {
-  ref.read(authProvider);
+  ref.read(firebaseProvider);
+  ref.read(supabaseProvider);
   return;
 });

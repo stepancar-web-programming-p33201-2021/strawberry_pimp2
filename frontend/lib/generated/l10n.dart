@@ -89,6 +89,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Your Chats`
+  String get your_chats_ui_string {
+    return Intl.message(
+      'Your Chats',
+      name: 'your_chats_ui_string',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

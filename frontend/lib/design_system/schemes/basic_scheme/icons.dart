@@ -1,0 +1,4 @@
+class Icons {
+
+  const Icons();
+}

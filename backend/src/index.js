@@ -16,17 +16,24 @@ const app_1 = require("./server/app");
 const mongoose_1 = __importDefault(require("mongoose"));
 const constants_1 = require("./utils/constants");
 const router_1 = require("./server/router");
+const utils_1 = require("./utils/utils");
+const app_2 = require("firebase-admin/app");
+const firebase_admin_1 = require("firebase-admin");
 const port = 999;
+const serviceAccount = require("./config/fbp_strawberrypimp_key.json");
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(constants_1.funnyComments.startComment + port);
-        console.log(`${constants_1.typicalDefaults.localHostUrl}:${port}`);
+        (0, utils_1.print)(constants_1.funnyComments.startComment + port);
+        (0, utils_1.print)(`${constants_1.typicalDefaults.localHostUrl}:${port}`);
         yield mongoose_1.default.connect(`${constants_1.dbConstants.localHostMongo}/${constants_1.dbConstants.mainDB}`);
+        yield (0, app_2.initializeApp)({
+            credential: firebase_admin_1.credential.cert(serviceAccount),
+        });
         (0, router_1.router)(app_1.app);
         app_1.app.listen(port, () => {
-            console.log(`StrawberryPimp app listening at http://localhost:${port}`);
+            (0, utils_1.print)(`StrawberryPimp app listening at http://localhost:${port}`);
         });
     });
 }
 ///Starting main :)
-main();
+let promise = main();

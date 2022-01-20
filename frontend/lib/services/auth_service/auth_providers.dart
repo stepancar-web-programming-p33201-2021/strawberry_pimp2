@@ -7,19 +7,11 @@ import 'package:tinder/services/auth_service/auth_service.dart';
 import 'package:tinder/services/auth_service/auth_state.dart';
 
 final authServiceProvider =
-    StateNotifierProvider<AuthService, AuthState>((ref) => AuthService());
+    StateNotifierProvider<AuthService, AuthState>((ref) => AuthService(ref));
 
 final authProvider = Provider<void>((ref) {
   final authServiceState = ref.watch(authServiceProvider.notifier);
-  final beamerState = ref.read(routerProvider);
-  ref.listen(appLifecycleProvider, (previous, next) {
-    if (next == AppLifecycle.uiLoaded && !authServiceState.isSignedIn()) {
-      beamerState.beamToNamed(Routes.auth);
-    }
-    if (authServiceState.isSignedIn()) {
-      beamerState.beamBack();
-      // beamerState.beamToNamed(Routes.auth);
-    }
-  });
+  final appLifecycleState = ref.watch(appLifecycleProvider);
+
   return;
 });

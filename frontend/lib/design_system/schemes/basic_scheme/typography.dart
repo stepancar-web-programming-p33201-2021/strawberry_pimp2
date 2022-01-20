@@ -1,0 +1,3 @@
+class Typography {
+  const Typography();
+}
