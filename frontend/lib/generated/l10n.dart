@@ -99,6 +99,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Unfortunately you do not have any chats yet.`
+  String get there_is_no_chats_ui_string {
+    return Intl.message(
+      'Unfortunately you do not have any chats yet.',
+      name: 'there_is_no_chats_ui_string',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nick: {}`
+  String get nick_ui_string {
+    return Intl.message(
+      'Nick: {}',
+      name: 'nick_ui_string',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Id: {}`
+  String get id_ui_string {
+    return Intl.message(
+      'Id: {}',
+      name: 'id_ui_string',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -16,6 +16,7 @@ _$_ChatModel _$$_ChatModelFromJson(Map<String, dynamic> json) => _$_ChatModel(
           : UserModel.fromJson(json['user_b'] as Map<String, dynamic>),
       createdAt: json['created_at'] as int?,
       messagesListId: json['messages_list_id'] as String?,
+      lastMessage: json['last_message'] as String?,
     );
 
 Map<String, dynamic> _$$_ChatModelToJson(_$_ChatModel instance) =>
@@ -25,4 +26,5 @@ Map<String, dynamic> _$$_ChatModelToJson(_$_ChatModel instance) =>
       'user_b': instance.userB?.toJson(),
       'created_at': instance.createdAt,
       'messages_list_id': instance.messagesListId,
+      'last_message': instance.lastMessage,
     };

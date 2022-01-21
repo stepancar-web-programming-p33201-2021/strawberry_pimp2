@@ -3,5 +3,8 @@
     "welcome_ui_string": "Hello Stranger, looks like you need to sign in into your account...\n Pls, follow button below.",
     "sign_in_google_ui_string": "Sign In with Google",
     "sign_in_anonymous_ui_string": "Sign In Anonymously",
-    "your_chats_ui_string": "Your Chats"
+    "your_chats_ui_string": "Your Chats",
+    "there_is_no_chats_ui_string": "Unfortunately you do not have any chats yet.",
+    "nick_ui_string": "Nick: {}",
+    "id_ui_string": "Id: {}"
 }

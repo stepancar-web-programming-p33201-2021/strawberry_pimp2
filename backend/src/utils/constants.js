@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.funnyComments = exports.typicalDefaults = exports.dbConstants = void 0;
 const dbConstants = {
-    mainDB: "brothel_database",
-    usersCollection: "beaches",
-    localHostMongo: "mongodb://localhost:27017",
+    chatsTable: "chats_table",
+    usersTable: "users_table",
+    supabaseUrl: "https://ivxeiirknoyyksstixwg.supabase.co",
 };
 exports.dbConstants = dbConstants;
 const typicalDefaults = {

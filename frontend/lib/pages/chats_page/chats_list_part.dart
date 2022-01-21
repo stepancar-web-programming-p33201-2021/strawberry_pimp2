@@ -1,28 +1,37 @@
 part of 'chats_page.dart';
 
-class ChatsList extends StatelessWidget {
+class ChatsList extends ConsumerWidget {
   const ChatsList({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          return Card(
-            margin: const EdgeInsets.all(15),
-            child: Container(
-              color: Colors.blue[100 * (index % 9 + 1)],
-              height: 80,
-              alignment: Alignment.center,
-              child: Text(
-                "Item $index",
-                style: const TextStyle(fontSize: 30),
-              ),
+  Widget build(BuildContext context, ref) {
+    const _loadingIndicator =
+        SliverToBoxAdapter(child: CircularProgressIndicator.adaptive());
+    final _userId = ref.read(authServiceProvider.notifier).userId;
+    final widget2display = ref.read(chatListProvider).when(
+        data: (chatsList) {
+          if (chatsList.isEmpty) {
+            return SliverToBoxAdapter(
+              child: Text(S.of(context).there_is_no_chats_ui_string),
+            );
+          }
+          return SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                final chat = chatsList[index];
+                return ListTile(
+                  selectedColor: Colors.blue[100 * (index % 9 + 1)],
+                  title: Text(
+                    "Chat with ${chat.anotherUser(_userId).nick}",
+                  ),
+                );
+              },
+              childCount: chatsList.length, // 1000 list items
             ),
           );
         },
-        childCount: 1000, // 1000 list items
-      ),
-    );
+        error: (error, stack) => Text(error.toString()),
+        loading: () => _loadingIndicator);
+    return widget2display;
   }
 }

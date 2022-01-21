@@ -9,13 +9,25 @@ part 'chat_model.g.dart';
 @freezed
 class ChatModel with _$ChatModel {
   @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
-  const factory ChatModel(
-      {String? id,
-      UserModel? userA,
-      UserModel? userB,
-      int? createdAt,
-      String? messagesListId}) = _ChatModel;
+  const factory ChatModel({
+    String? id,
+    UserModel? userA,
+    UserModel? userB,
+    int? createdAt,
+    String? messagesListId,
+    String? lastMessage
+  }) = _ChatModel;
 
   factory ChatModel.fromJson(Map<String, dynamic> json) =>
       _$ChatModelFromJson(json);
+}
+
+extension F on ChatModel {
+  UserModel anotherUser(String currentUid) {
+    if (userA!.nick == currentUid) {
+      return userB!;
+    } else {
+      return userA!;
+    }
+  }
 }

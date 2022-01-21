@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tinder/generated/l10n.dart';
-
+import 'package:tinder/models/tmp_models/chat_model.dart';
+import 'package:tinder/services/auth_service/auth_providers.dart';
+import 'chats_provider.dart';
 part 'chats_list_part.dart';
 
 class ChatsPage extends StatelessWidget {

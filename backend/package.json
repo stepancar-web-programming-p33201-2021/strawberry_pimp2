@@ -43,6 +43,7 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^1.29.2",
     "@types/cookie-parser": "^1.4.2",
     "@types/morgan": "^1.9.3",
     "cookie-parser": "^1.4.6",

@@ -23,10 +23,14 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("Tinder"),
+        "id_ui_string": MessageLookupByLibrary.simpleMessage("Id: {}"),
+        "nick_ui_string": MessageLookupByLibrary.simpleMessage("Nick: {}"),
         "sign_in_anonymous_ui_string":
             MessageLookupByLibrary.simpleMessage("Sign In Anonymously"),
         "sign_in_google_ui_string":
             MessageLookupByLibrary.simpleMessage("Sign In with Google"),
+        "there_is_no_chats_ui_string": MessageLookupByLibrary.simpleMessage(
+            "Unfortunately you do not have any chats yet."),
         "welcome_ui_string": MessageLookupByLibrary.simpleMessage(
             "Hello Stranger, looks like you need to sign in into your account...\n Pls, follow button below."),
         "your_chats_ui_string":

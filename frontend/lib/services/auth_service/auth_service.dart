@@ -45,6 +45,12 @@ class AuthService extends StateNotifier<AuthState> {
     return _firebaseAuth.currentUser != null;
   }
 
+  Future<String?> idToken() async {
+    return await _firebaseAuth.currentUser?.getIdToken();
+  }
+
+  String get userId => _firebaseAuth.currentUser!.uid;
+
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }

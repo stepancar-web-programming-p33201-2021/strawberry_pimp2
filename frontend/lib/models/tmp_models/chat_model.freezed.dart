@@ -27,13 +27,15 @@ class _$ChatModelTearOff {
       UserModel? userA,
       UserModel? userB,
       int? createdAt,
-      String? messagesListId}) {
+      String? messagesListId,
+      String? lastMessage}) {
     return _ChatModel(
       id: id,
       userA: userA,
       userB: userB,
       createdAt: createdAt,
       messagesListId: messagesListId,
+      lastMessage: lastMessage,
     );
   }
 
@@ -52,6 +54,7 @@ mixin _$ChatModel {
   UserModel? get userB => throw _privateConstructorUsedError;
   int? get createdAt => throw _privateConstructorUsedError;
   String? get messagesListId => throw _privateConstructorUsedError;
+  String? get lastMessage => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -68,7 +71,8 @@ abstract class $ChatModelCopyWith<$Res> {
       UserModel? userA,
       UserModel? userB,
       int? createdAt,
-      String? messagesListId});
+      String? messagesListId,
+      String? lastMessage});
 
   $UserModelCopyWith<$Res>? get userA;
   $UserModelCopyWith<$Res>? get userB;
@@ -89,6 +93,7 @@ class _$ChatModelCopyWithImpl<$Res> implements $ChatModelCopyWith<$Res> {
     Object? userB = freezed,
     Object? createdAt = freezed,
     Object? messagesListId = freezed,
+    Object? lastMessage = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -110,6 +115,10 @@ class _$ChatModelCopyWithImpl<$Res> implements $ChatModelCopyWith<$Res> {
       messagesListId: messagesListId == freezed
           ? _value.messagesListId
           : messagesListId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastMessage: lastMessage == freezed
+          ? _value.lastMessage
+          : lastMessage // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -148,7 +157,8 @@ abstract class _$ChatModelCopyWith<$Res> implements $ChatModelCopyWith<$Res> {
       UserModel? userA,
       UserModel? userB,
       int? createdAt,
-      String? messagesListId});
+      String? messagesListId,
+      String? lastMessage});
 
   @override
   $UserModelCopyWith<$Res>? get userA;
@@ -172,6 +182,7 @@ class __$ChatModelCopyWithImpl<$Res> extends _$ChatModelCopyWithImpl<$Res>
     Object? userB = freezed,
     Object? createdAt = freezed,
     Object? messagesListId = freezed,
+    Object? lastMessage = freezed,
   }) {
     return _then(_ChatModel(
       id: id == freezed
@@ -194,6 +205,10 @@ class __$ChatModelCopyWithImpl<$Res> extends _$ChatModelCopyWithImpl<$Res>
           ? _value.messagesListId
           : messagesListId // ignore: cast_nullable_to_non_nullable
               as String?,
+      lastMessage: lastMessage == freezed
+          ? _value.lastMessage
+          : lastMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -203,7 +218,12 @@ class __$ChatModelCopyWithImpl<$Res> extends _$ChatModelCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _$_ChatModel with DiagnosticableTreeMixin implements _ChatModel {
   const _$_ChatModel(
-      {this.id, this.userA, this.userB, this.createdAt, this.messagesListId});
+      {this.id,
+      this.userA,
+      this.userB,
+      this.createdAt,
+      this.messagesListId,
+      this.lastMessage});
 
   factory _$_ChatModel.fromJson(Map<String, dynamic> json) =>
       _$$_ChatModelFromJson(json);
@@ -218,10 +238,12 @@ class _$_ChatModel with DiagnosticableTreeMixin implements _ChatModel {
   final int? createdAt;
   @override
   final String? messagesListId;
+  @override
+  final String? lastMessage;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ChatModel(id: $id, userA: $userA, userB: $userB, createdAt: $createdAt, messagesListId: $messagesListId)';
+    return 'ChatModel(id: $id, userA: $userA, userB: $userB, createdAt: $createdAt, messagesListId: $messagesListId, lastMessage: $lastMessage)';
   }
 
   @override
@@ -233,7 +255,8 @@ class _$_ChatModel with DiagnosticableTreeMixin implements _ChatModel {
       ..add(DiagnosticsProperty('userA', userA))
       ..add(DiagnosticsProperty('userB', userB))
       ..add(DiagnosticsProperty('createdAt', createdAt))
-      ..add(DiagnosticsProperty('messagesListId', messagesListId));
+      ..add(DiagnosticsProperty('messagesListId', messagesListId))
+      ..add(DiagnosticsProperty('lastMessage', lastMessage));
   }
 
   @override
@@ -246,7 +269,9 @@ class _$_ChatModel with DiagnosticableTreeMixin implements _ChatModel {
             const DeepCollectionEquality().equals(other.userB, userB) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality()
-                .equals(other.messagesListId, messagesListId));
+                .equals(other.messagesListId, messagesListId) &&
+            const DeepCollectionEquality()
+                .equals(other.lastMessage, lastMessage));
   }
 
   @override
@@ -256,7 +281,8 @@ class _$_ChatModel with DiagnosticableTreeMixin implements _ChatModel {
       const DeepCollectionEquality().hash(userA),
       const DeepCollectionEquality().hash(userB),
       const DeepCollectionEquality().hash(createdAt),
-      const DeepCollectionEquality().hash(messagesListId));
+      const DeepCollectionEquality().hash(messagesListId),
+      const DeepCollectionEquality().hash(lastMessage));
 
   @JsonKey(ignore: true)
   @override
@@ -275,7 +301,8 @@ abstract class _ChatModel implements ChatModel {
       UserModel? userA,
       UserModel? userB,
       int? createdAt,
-      String? messagesListId}) = _$_ChatModel;
+      String? messagesListId,
+      String? lastMessage}) = _$_ChatModel;
 
   factory _ChatModel.fromJson(Map<String, dynamic> json) =
       _$_ChatModel.fromJson;
@@ -290,6 +317,8 @@ abstract class _ChatModel implements ChatModel {
   int? get createdAt;
   @override
   String? get messagesListId;
+  @override
+  String? get lastMessage;
   @override
   @JsonKey(ignore: true)
   _$ChatModelCopyWith<_ChatModel> get copyWith =>

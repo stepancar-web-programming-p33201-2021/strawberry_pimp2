@@ -8,12 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = require("./server/app");
-const mongoose_1 = __importDefault(require("mongoose"));
 const constants_1 = require("./utils/constants");
 const router_1 = require("./server/router");
 const utils_1 = require("./utils/utils");
@@ -25,7 +21,6 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         (0, utils_1.print)(constants_1.funnyComments.startComment + port);
         (0, utils_1.print)(`${constants_1.typicalDefaults.localHostUrl}:${port}`);
-        yield mongoose_1.default.connect(`${constants_1.dbConstants.localHostMongo}/${constants_1.dbConstants.mainDB}`);
         yield (0, app_2.initializeApp)({
             credential: firebase_admin_1.credential.cert(serviceAccount),
         });

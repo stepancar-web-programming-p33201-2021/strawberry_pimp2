@@ -1,7 +1,10 @@
 const dbConstants = {
-    mainDB: "brothel_database",
-    usersCollection: "beaches",
-    localHostMongo: "mongodb://localhost:27017",
+    chatsTable: "chats_table",
+    usersTable: "users_table",
+    attachmentsTable: "attachments_table",
+    messagesListTable: "messages_list_table",
+    messagesTable: "messages_table",
+    supabaseUrl: "https://ivxeiirknoyyksstixwg.supabase.co",
 }
 const typicalDefaults = {
     localHostUrl: "https://127.0.0.1",
