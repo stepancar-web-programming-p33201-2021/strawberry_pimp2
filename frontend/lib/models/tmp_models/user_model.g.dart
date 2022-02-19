@@ -13,10 +13,19 @@ _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
       createdAt: json['created_at'] as String?,
     );
 
-Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
-    <String, dynamic>{
-      'nick': instance.nick,
-      'is_anonymous': instance.isAnonymous,
-      'uid': instance.uid,
-      'created_at': instance.createdAt,
-    };
+Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) {
+  final val = <String, dynamic>{
+    'nick': instance.nick,
+    'is_anonymous': instance.isAnonymous,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('uid', instance.uid);
+  writeNotNull('created_at', instance.createdAt);
+  return val;
+}

@@ -23,7 +23,7 @@ class _$ChatModelTearOff {
   const _$ChatModelTearOff();
 
   _ChatModel call(
-      {String? id,
+      {int? id,
       UserModel? userA,
       UserModel? userB,
       String? createdAt,
@@ -49,7 +49,7 @@ const $ChatModel = _$ChatModelTearOff();
 
 /// @nodoc
 mixin _$ChatModel {
-  String? get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   UserModel? get userA => throw _privateConstructorUsedError;
   UserModel? get userB => throw _privateConstructorUsedError;
   String? get createdAt => throw _privateConstructorUsedError;
@@ -67,7 +67,7 @@ abstract class $ChatModelCopyWith<$Res> {
   factory $ChatModelCopyWith(ChatModel value, $Res Function(ChatModel) then) =
       _$ChatModelCopyWithImpl<$Res>;
   $Res call(
-      {String? id,
+      {int? id,
       UserModel? userA,
       UserModel? userB,
       String? createdAt,
@@ -99,7 +99,7 @@ class _$ChatModelCopyWithImpl<$Res> implements $ChatModelCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       userA: userA == freezed
           ? _value.userA
           : userA // ignore: cast_nullable_to_non_nullable
@@ -153,7 +153,7 @@ abstract class _$ChatModelCopyWith<$Res> implements $ChatModelCopyWith<$Res> {
       __$ChatModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? id,
+      {int? id,
       UserModel? userA,
       UserModel? userB,
       String? createdAt,
@@ -188,7 +188,7 @@ class __$ChatModelCopyWithImpl<$Res> extends _$ChatModelCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       userA: userA == freezed
           ? _value.userA
           : userA // ignore: cast_nullable_to_non_nullable
@@ -229,7 +229,7 @@ class _$_ChatModel with DiagnosticableTreeMixin implements _ChatModel {
       _$$_ChatModelFromJson(json);
 
   @override
-  final String? id;
+  final int? id;
   @override
   final UserModel? userA;
   @override
@@ -297,7 +297,7 @@ class _$_ChatModel with DiagnosticableTreeMixin implements _ChatModel {
 
 abstract class _ChatModel implements ChatModel {
   const factory _ChatModel(
-      {String? id,
+      {int? id,
       UserModel? userA,
       UserModel? userB,
       String? createdAt,
@@ -308,7 +308,7 @@ abstract class _ChatModel implements ChatModel {
       _$_ChatModel.fromJson;
 
   @override
-  String? get id;
+  int? get id;
   @override
   UserModel? get userA;
   @override

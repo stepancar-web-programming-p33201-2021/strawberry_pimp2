@@ -15,7 +15,7 @@ abstract class UsersService extends ChopperService {
   Future<Response<UserModel>> findByNik(@Field() String nik);
 
   @Post(path: '/update_user')
-  Future<Response> updateUser(@Field() UserModel user);
+  Future<Response<void>> updateUser(@Field() UserModel user);
 
   // @Post(path: '/create_chat')
   // Future<Response> createChat(String anotherUid);

@@ -25,8 +25,9 @@ class _$ChatsService extends ChatsService {
 
   @override
   Future<Response<dynamic>> createChat(String anotherUid) {
-    final $url = '/chats/create_chat';
-    final $request = Request('POST', $url, client.baseUrl);
+    final $url = '/chats/update_chat';
+    final $body = <String, dynamic>{'anotherUid': anotherUid};
+    final $request = Request('POST', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request);
   }
 }

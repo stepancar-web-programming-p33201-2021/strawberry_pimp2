@@ -147,7 +147,8 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, explicitToJson: true, includeIfNull: false)
 class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
   const _$_UserModel(
       {this.nick = keywordAnonymous,

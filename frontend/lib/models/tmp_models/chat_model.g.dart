@@ -7,7 +7,7 @@ part of 'chat_model.dart';
 // **************************************************************************
 
 _$_ChatModel _$$_ChatModelFromJson(Map<String, dynamic> json) => _$_ChatModel(
-      id: json['id'] as String?,
+      id: json['id'] as int?,
       userA: json['user_a'] == null
           ? null
           : UserModel.fromJson(json['user_a'] as Map<String, dynamic>),

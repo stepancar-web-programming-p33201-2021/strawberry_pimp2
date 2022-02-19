@@ -24,13 +24,17 @@ class ChatsList extends ConsumerWidget {
                   title: Text(
                     "Chat with ${chat.anotherUser(_userId).nick}",
                   ),
+                  onTap: () {
+                    ref.read(selectedChatIdProvider.notifier).state = chat.id;
+                  },
                 );
               },
               childCount: chatsList.length, // 1000 list items
             ),
           );
         },
-        error: (error, stack) => SliverToBoxAdapter(child: Text(error.toString())),
+        error: (error, stack) =>
+            SliverToBoxAdapter(child: Text(error.toString())),
         loading: () => _loadingIndicator);
     return widget2display;
   }

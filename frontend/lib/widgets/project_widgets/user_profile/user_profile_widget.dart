@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tinder/utils/constants.dart';
 import 'package:tinder/widgets/project_widgets/user_profile/user_profile_providers.dart';
 
-class UserProfileWidget extends ConsumerWidget {
+class UserProfileWidget extends HookConsumerWidget {
   const UserProfileWidget({Key? key}) : super(key: key);
 
   @override
@@ -11,6 +12,7 @@ class UserProfileWidget extends ConsumerWidget {
     const _loading = CircularProgressIndicator.adaptive();
     final model = ref.watch(userProfileControllerProvider.notifier);
     final state = ref.watch(userProfileControllerProvider);
+    final textController = useTextEditingController();
     return ref.watch(userProfileProvider).when(
         data: (profile) {
           final nick = context.s.nick_ui_string(profile.nick);
@@ -28,11 +30,43 @@ class UserProfileWidget extends ConsumerWidget {
                 value: !profile.isAnonymous,
               ),
               if (state.isLoading) const LinearProgressIndicator(),
-              if (state.isError) Text(state.error!),
+              if (state.isError) Text(state.error ?? 'this is error'),
+              ListTile(
+                title: Text('create chat'),
+                onTap: () {
+                  _displayTextInputDialog(context, textController, ref);
+                },
+              ),
             ],
           );
         },
         error: (error, stack) => Text(error.toString()),
         loading: () => _loading);
   }
+}
+
+Future<void> _displayTextInputDialog(
+    BuildContext context, controller, WidgetRef ref) async {
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('User Id'),
+          actions: [
+            OutlinedButton(
+                onPressed: () {
+                  ref.read(userProfileControllerProvider.notifier).createChat();
+                  Navigator.pop(context);
+                },
+                child: const Text('create'))
+          ],
+          content: TextField(
+            onChanged: (value) {
+              ref.read(userIdProvider.notifier).state = value;
+            },
+            controller: controller,
+            decoration: const InputDecoration(hintText: "User Id'"),
+          ),
+        );
+      });
 }

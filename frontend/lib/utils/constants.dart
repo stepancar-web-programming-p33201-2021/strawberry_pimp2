@@ -9,7 +9,12 @@ const authTokenKeyword = 'authtoken';
 
 const keywordAnonymous = 'anonymous';
 
+extension ContextHelper on BuildContext {
+  S get s => S.of(this);
+}
 
-extension ContextHelper on BuildContext{
-    S get s => S.of(this);
+extension MapHelper<K, V> on Map<K, V> {
+  Map<K, V> get noNullable {
+    return Map.of(this)..removeWhere((key, value) => value == null);
+  }
 }

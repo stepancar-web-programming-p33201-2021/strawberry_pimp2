@@ -10,8 +10,8 @@ abstract class ChatsService extends ChopperService {
   @Post()
   Future<Response<List<ChatModel>>> getChats();
 
-  @Post(path: '/create_chat')
-  Future<Response> createChat(String anotherUid);
+  @Post(path: '/update_chat')
+  Future<Response> createChat(@Field() String anotherUid);
 
   // A helper method that helps instantiating the service. You can omit this method and use the generated class directly instead.
   static ChatsService create([ChopperClient? client]) => _$ChatsService(client);

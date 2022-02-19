@@ -32,10 +32,10 @@ class _$UsersService extends UsersService {
   }
 
   @override
-  Future<Response<dynamic>> updateUser(UserModel user) {
+  Future<Response<void>> updateUser(UserModel user) {
     final $url = '/user/update_user';
     final $body = <String, dynamic>{'user': user};
     final $request = Request('POST', $url, client.baseUrl, body: $body);
-    return client.send<dynamic, dynamic>($request);
+    return client.send<void, void>($request);
   }
 }

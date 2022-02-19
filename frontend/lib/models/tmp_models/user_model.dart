@@ -8,7 +8,7 @@ part 'user_model.g.dart';
 
 @freezed
 class UserModel with _$UserModel {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
+  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true, includeIfNull: false)
   const factory UserModel({
     @Default(keywordAnonymous) String nick,
     @Default(true) bool isAnonymous,

@@ -22,10 +22,27 @@ function router(app: Express) {
             if (typeof token === "string") {
                 auth().verifyIdToken(token).then(async (decodedToken) => {
                     let uid = decodedToken.uid;
-                    const {data, error} = await supabase.from(dbConstants.chatsTable)
-                        .select().eq('id', uid);
+                    let tUid = await getTrueId(supabase, uid);
 
-                    res.status(200).json(data ?? []);
+                    const {data, error} = await supabase.from(dbConstants.chatsTable)
+                        .select().or('user_a.eq.' + tUid + ',user_b.eq.' + tUid);
+
+                    let list = [];
+                    for (let i = 0; i < data.length; i++) {
+                        let el: ChatModel = data[i];
+                        let userA = await getUserByInternalId(supabase, el.user_a);
+                        let userB = await getUserByInternalId(supabase, el.user_b);
+                        let chatModel: ChatModelFourUser = {
+                            id: el.id,
+                            created_at: el.created_at,
+                            user_a: userA,
+                            user_b: userB,
+                            messages_list_id: el.messages_list_id,
+                            last_message: el.last_message,
+                        };
+                        list.push(chatModel);
+                    }
+                    res.status(200).json(list);
                 });
             }
         }
@@ -37,11 +54,11 @@ function router(app: Express) {
                 auth().verifyIdToken(token).then(async (decodedToken) => {
                     let uid = decodedToken.uid;
                     let {data, error} = await supabase.from(dbConstants.usersTable)
-                        .select().eq('uid', uid);
-                    if (!data) {
-                        data = await createUser(supabase, uid);
-                        res.json(data);
+                        .select().match({'uid': uid});
+                    if (typeof data !== 'undefined' && data.length > 0) {
+                        res.json(data[0]);
                     } else {
+                        data = await createUser(supabase, uid);
                         res.json(data);
                     }
                 });
@@ -51,7 +68,7 @@ function router(app: Express) {
 
     app.post('/user/update_user', (req, res) => {
         let token = req.headers.authtoken;
-        let userData: UserModel = req.body.userData;
+        let userData: UserModel = req.body.user;
         if (token) {
             if (typeof token === "string") {
                 auth().verifyIdToken(token).then(async (decodedToken) => {
@@ -60,11 +77,11 @@ function router(app: Express) {
                     const {
                         data,
                         error
-                    } = await supabase.from(dbConstants.usersTable).update({}).match({uid: uid});
+                    } = await supabase.from(dbConstants.usersTable).update(userData).match({uid: uid});
                     if (data) {
-                        res.status(200);
+                        await res.status(200).send();
                     } else {
-                        res.status(400);
+                        await res.status(400).send();
                     }
                 });
             }
@@ -73,19 +90,23 @@ function router(app: Express) {
 
     app.post('/chats/update_chat', (req, res) => {
         let token = req.headers.authtoken;
-        let anotherUid = req.body.aUid;
+        let anotherUid: string = req.body.anotherUid;
         if (token) {
             if (typeof token === "string") {
                 auth().verifyIdToken(token).then(async (decodedToken) => {
                     let uid = decodedToken.uid;
+
+                    let tUid = await getTrueId(supabase, uid);
+                    let tAUid = await getTrueId(supabase, anotherUid);
+
                     const {data, error} = await supabase.from(dbConstants.chatsTable).insert({
-                        user_a: uid,
-                        user_b: anotherUid
+                        user_a: tUid,
+                        user_b: tAUid
                     });
                     if (data) {
-                        res.status(200);
+                        res.status(200).send();
                     } else {
-                        res.status(400);
+                        res.status(400).send();
                     }
                 });
             }
@@ -136,6 +157,21 @@ function checkAuth(req: any, res: any, next: any) {
     }
 }
 
+async function getTrueId(supabase: SupabaseClient, uid: string): Promise<number> {
+    let {data, error} = await supabase.from(dbConstants.usersTable)
+        .select().match({'uid': uid});
+    if (typeof data !== 'undefined' && data.length > 0) {
+        return data[0].id;
+    }
+}
+
+async function getUserByInternalId(supabase: SupabaseClient, id: number): Promise<UserModel> {
+    let {data, error} = await supabase.from(dbConstants.usersTable)
+        .select().match({'id': id});
+    if (typeof data !== 'undefined' && data.length > 0) {
+        return data[0];
+    }
+}
 
 async function createUser(supabase: SupabaseClient, uid: string): Promise<any> {
     const obj: UserModel = {uid: uid};

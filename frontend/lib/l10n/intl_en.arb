@@ -7,6 +7,6 @@
     "there_is_no_chats_ui_string": "Unfortunately you do not have any chats yet.",
     "nick_ui_string": "Nick: {nick}",
     "id_ui_string": "Id: {id}",
-    "open_account": "Open account",
-    "closed_account": "Closed account"
+    "open_account": "Open account (Mouse)",
+    "closed_account": "Closed account (Anonymous)"
 }

@@ -130,20 +130,20 @@ class S {
     );
   }
 
-  /// `Open account`
+  /// `Open account (Mouse)`
   String get open_account {
     return Intl.message(
-      'Open account',
+      'Open account (Mouse)',
       name: 'open_account',
       desc: '',
       args: [],
     );
   }
 
-  /// `Closed account`
+  /// `Closed account (Anonymous)`
   String get closed_account {
     return Intl.message(
-      'Closed account',
+      'Closed account (Anonymous)',
       name: 'closed_account',
       desc: '',
       args: [],

@@ -10,7 +10,7 @@ part 'chat_model.g.dart';
 class ChatModel with _$ChatModel {
   @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory ChatModel({
-    String? id,
+    int? id,
     UserModel? userA,
     UserModel? userB,
     String? createdAt,
