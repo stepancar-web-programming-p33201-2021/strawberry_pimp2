@@ -5,6 +5,8 @@
     "sign_in_anonymous_ui_string": "Sign In Anonymously",
     "your_chats_ui_string": "Your Chats",
     "there_is_no_chats_ui_string": "Unfortunately you do not have any chats yet.",
-    "nick_ui_string": "Nick: {}",
-    "id_ui_string": "Id: {}"
+    "nick_ui_string": "Nick: {nick}",
+    "id_ui_string": "Id: {id}",
+    "open_account": "Open account",
+    "closed_account": "Closed account"
 }

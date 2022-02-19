@@ -23,11 +23,14 @@ class _$UserModelTearOff {
   const _$UserModelTearOff();
 
   _UserModel call(
-      {String? nick, bool? isAnonymous, String? id, int? createdAt}) {
+      {String nick = keywordAnonymous,
+      bool isAnonymous = true,
+      String? uid,
+      String? createdAt}) {
     return _UserModel(
       nick: nick,
       isAnonymous: isAnonymous,
-      id: id,
+      uid: uid,
       createdAt: createdAt,
     );
   }
@@ -42,10 +45,10 @@ const $UserModel = _$UserModelTearOff();
 
 /// @nodoc
 mixin _$UserModel {
-  String? get nick => throw _privateConstructorUsedError;
-  bool? get isAnonymous => throw _privateConstructorUsedError;
-  String? get id => throw _privateConstructorUsedError;
-  int? get createdAt => throw _privateConstructorUsedError;
+  String get nick => throw _privateConstructorUsedError;
+  bool get isAnonymous => throw _privateConstructorUsedError;
+  String? get uid => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,7 +60,7 @@ mixin _$UserModel {
 abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res>;
-  $Res call({String? nick, bool? isAnonymous, String? id, int? createdAt});
+  $Res call({String nick, bool isAnonymous, String? uid, String? createdAt});
 }
 
 /// @nodoc
@@ -72,26 +75,26 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
   $Res call({
     Object? nick = freezed,
     Object? isAnonymous = freezed,
-    Object? id = freezed,
+    Object? uid = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
       nick: nick == freezed
           ? _value.nick
           : nick // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       isAnonymous: isAnonymous == freezed
           ? _value.isAnonymous
           : isAnonymous // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+              as bool,
+      uid: uid == freezed
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
               as String?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ));
   }
 }
@@ -102,7 +105,7 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
           _UserModel value, $Res Function(_UserModel) then) =
       __$UserModelCopyWithImpl<$Res>;
   @override
-  $Res call({String? nick, bool? isAnonymous, String? id, int? createdAt});
+  $Res call({String nick, bool isAnonymous, String? uid, String? createdAt});
 }
 
 /// @nodoc
@@ -118,26 +121,26 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
   $Res call({
     Object? nick = freezed,
     Object? isAnonymous = freezed,
-    Object? id = freezed,
+    Object? uid = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_UserModel(
       nick: nick == freezed
           ? _value.nick
           : nick // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       isAnonymous: isAnonymous == freezed
           ? _value.isAnonymous
           : isAnonymous // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+              as bool,
+      uid: uid == freezed
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
               as String?,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ));
   }
 }
@@ -146,23 +149,29 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
 
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
-  const _$_UserModel({this.nick, this.isAnonymous, this.id, this.createdAt});
+  const _$_UserModel(
+      {this.nick = keywordAnonymous,
+      this.isAnonymous = true,
+      this.uid,
+      this.createdAt});
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$$_UserModelFromJson(json);
 
+  @JsonKey()
   @override
-  final String? nick;
+  final String nick;
+  @JsonKey()
   @override
-  final bool? isAnonymous;
+  final bool isAnonymous;
   @override
-  final String? id;
+  final String? uid;
   @override
-  final int? createdAt;
+  final String? createdAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserModel(nick: $nick, isAnonymous: $isAnonymous, id: $id, createdAt: $createdAt)';
+    return 'UserModel(nick: $nick, isAnonymous: $isAnonymous, uid: $uid, createdAt: $createdAt)';
   }
 
   @override
@@ -172,7 +181,7 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
       ..add(DiagnosticsProperty('type', 'UserModel'))
       ..add(DiagnosticsProperty('nick', nick))
       ..add(DiagnosticsProperty('isAnonymous', isAnonymous))
-      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('uid', uid))
       ..add(DiagnosticsProperty('createdAt', createdAt));
   }
 
@@ -184,7 +193,7 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
             const DeepCollectionEquality().equals(other.nick, nick) &&
             const DeepCollectionEquality()
                 .equals(other.isAnonymous, isAnonymous) &&
-            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.uid, uid) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt));
   }
 
@@ -193,7 +202,7 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
       runtimeType,
       const DeepCollectionEquality().hash(nick),
       const DeepCollectionEquality().hash(isAnonymous),
-      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(uid),
       const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
@@ -209,22 +218,22 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   const factory _UserModel(
-      {String? nick,
-      bool? isAnonymous,
-      String? id,
-      int? createdAt}) = _$_UserModel;
+      {String nick,
+      bool isAnonymous,
+      String? uid,
+      String? createdAt}) = _$_UserModel;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
 
   @override
-  String? get nick;
+  String get nick;
   @override
-  bool? get isAnonymous;
+  bool get isAnonymous;
   @override
-  String? get id;
+  String? get uid;
   @override
-  int? get createdAt;
+  String? get createdAt;
   @override
   @JsonKey(ignore: true)
   _$UserModelCopyWith<_UserModel> get copyWith =>

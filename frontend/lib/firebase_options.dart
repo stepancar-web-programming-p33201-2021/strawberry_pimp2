@@ -44,12 +44,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCLUDhsK2QEHBJn4PHA2uPOTpyBSlwZm8Q',
-    appId: '1:619449120359:web:0ccf1cb52b770edb1a06c2',
-    messagingSenderId: '619449120359',
-    projectId: 'strawberrypimp',
-    authDomain: 'strawberrypimp.firebaseapp.com',
-    storageBucket: 'strawberrypimp.appspot.com',
-    measurementId: 'G-YTTPM2SFG7',
+    apiKey: 'AIzaSyBa8OEzv6JzZLR2ZjVBUapJcDzdSLDKUDc',
+    appId: '1:788290443805:web:cf01c89d8c255a59ef84f4',
+    messagingSenderId: '788290443805',
+    projectId: 'mistic-chat',
+    authDomain: 'mistic-chat.firebaseapp.com',
+    storageBucket: 'mistic-chat.appspot.com',
   );
 }

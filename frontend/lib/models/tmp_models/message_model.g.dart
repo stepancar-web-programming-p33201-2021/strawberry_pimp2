@@ -14,8 +14,8 @@ _$_MessageModel _$$_MessageModelFromJson(Map<String, dynamic> json) =>
           .toList(),
       messageSender:
           $enumDecodeNullable(_$MessageSenderEnumMap, json['message_sender']),
-      createdAt: json['created_at'] as int?,
-      updatedAt: json['updated_at'] as int?,
+      createdAt: json['created_at'] as String?,
+      updatedAt: json['updated_at'] as String?,
       readAt: json['read_at'] as int?,
     );
 

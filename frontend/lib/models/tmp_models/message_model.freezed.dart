@@ -26,8 +26,8 @@ class _$MessageModelTearOff {
       {String? id,
       List<AttachmentModel>? attachments,
       MessageSender? messageSender,
-      int? createdAt,
-      int? updatedAt,
+      String? createdAt,
+      String? updatedAt,
       int? readAt}) {
     return _MessageModel(
       id: id,
@@ -52,8 +52,8 @@ mixin _$MessageModel {
   String? get id => throw _privateConstructorUsedError;
   List<AttachmentModel>? get attachments => throw _privateConstructorUsedError;
   MessageSender? get messageSender => throw _privateConstructorUsedError;
-  int? get createdAt => throw _privateConstructorUsedError;
-  int? get updatedAt => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
+  String? get updatedAt => throw _privateConstructorUsedError;
   int? get readAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -71,8 +71,8 @@ abstract class $MessageModelCopyWith<$Res> {
       {String? id,
       List<AttachmentModel>? attachments,
       MessageSender? messageSender,
-      int? createdAt,
-      int? updatedAt,
+      String? createdAt,
+      String? updatedAt,
       int? readAt});
 }
 
@@ -109,11 +109,11 @@ class _$MessageModelCopyWithImpl<$Res> implements $MessageModelCopyWith<$Res> {
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       updatedAt: updatedAt == freezed
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       readAt: readAt == freezed
           ? _value.readAt
           : readAt // ignore: cast_nullable_to_non_nullable
@@ -133,8 +133,8 @@ abstract class _$MessageModelCopyWith<$Res>
       {String? id,
       List<AttachmentModel>? attachments,
       MessageSender? messageSender,
-      int? createdAt,
-      int? updatedAt,
+      String? createdAt,
+      String? updatedAt,
       int? readAt});
 }
 
@@ -173,11 +173,11 @@ class __$MessageModelCopyWithImpl<$Res> extends _$MessageModelCopyWithImpl<$Res>
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       updatedAt: updatedAt == freezed
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       readAt: readAt == freezed
           ? _value.readAt
           : readAt // ignore: cast_nullable_to_non_nullable
@@ -208,9 +208,9 @@ class _$_MessageModel with DiagnosticableTreeMixin implements _MessageModel {
   @override
   final MessageSender? messageSender;
   @override
-  final int? createdAt;
+  final String? createdAt;
   @override
-  final int? updatedAt;
+  final String? updatedAt;
   @override
   final int? readAt;
 
@@ -273,8 +273,8 @@ abstract class _MessageModel implements MessageModel {
       {String? id,
       List<AttachmentModel>? attachments,
       MessageSender? messageSender,
-      int? createdAt,
-      int? updatedAt,
+      String? createdAt,
+      String? updatedAt,
       int? readAt}) = _$_MessageModel;
 
   factory _MessageModel.fromJson(Map<String, dynamic> json) =
@@ -287,9 +287,9 @@ abstract class _MessageModel implements MessageModel {
   @override
   MessageSender? get messageSender;
   @override
-  int? get createdAt;
+  String? get createdAt;
   @override
-  int? get updatedAt;
+  String? get updatedAt;
   @override
   int? get readAt;
   @override

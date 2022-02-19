@@ -1,0 +1,3 @@
+interface WakeUpCommand {
+    token: string
+}

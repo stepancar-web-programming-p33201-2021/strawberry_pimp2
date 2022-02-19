@@ -13,7 +13,7 @@ class ChatModel with _$ChatModel {
     String? id,
     UserModel? userA,
     UserModel? userB,
-    int? createdAt,
+    String? createdAt,
     String? messagesListId,
     String? lastMessage
   }) = _ChatModel;

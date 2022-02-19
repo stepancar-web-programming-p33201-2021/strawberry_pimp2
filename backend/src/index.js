@@ -15,8 +15,9 @@ const router_1 = require("./server/router");
 const utils_1 = require("./utils/utils");
 const app_2 = require("firebase-admin/app");
 const firebase_admin_1 = require("firebase-admin");
+const ws_1 = require("./server/ws/ws");
 const port = 999;
-const serviceAccount = require("./config/fbp_strawberrypimp_key.json");
+const serviceAccount = require("./config/mistic_chat_key.json");
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         (0, utils_1.print)(constants_1.funnyComments.startComment + port);
@@ -28,7 +29,12 @@ function main() {
         app_1.app.listen(port, () => {
             (0, utils_1.print)(`StrawberryPimp app listening at http://localhost:${port}`);
         });
+        ws_1.server.listen(process.env.PORT || 8999, () => {
+            const address = ws_1.server.address();
+            (0, utils_1.print)(`ws Server started on port ${typeof address == "string" ? address : address.port} :)`);
+        });
     });
 }
 ///Starting main :)
 let promise = main();
+//# sourceMappingURL=index.js.map

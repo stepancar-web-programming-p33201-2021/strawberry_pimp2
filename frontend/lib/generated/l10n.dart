@@ -110,21 +110,41 @@ class S {
     );
   }
 
-  /// `Nick: {}`
-  String get nick_ui_string {
+  /// `Nick: {nick}`
+  String nick_ui_string(Object nick) {
     return Intl.message(
-      'Nick: {}',
+      'Nick: $nick',
       name: 'nick_ui_string',
+      desc: '',
+      args: [nick],
+    );
+  }
+
+  /// `Id: {id}`
+  String id_ui_string(Object id) {
+    return Intl.message(
+      'Id: $id',
+      name: 'id_ui_string',
+      desc: '',
+      args: [id],
+    );
+  }
+
+  /// `Open account`
+  String get open_account {
+    return Intl.message(
+      'Open account',
+      name: 'open_account',
       desc: '',
       args: [],
     );
   }
 
-  /// `Id: {}`
-  String get id_ui_string {
+  /// `Closed account`
+  String get closed_account {
     return Intl.message(
-      'Id: {}',
-      name: 'id_ui_string',
+      'Closed account',
+      name: 'closed_account',
       desc: '',
       args: [],
     );

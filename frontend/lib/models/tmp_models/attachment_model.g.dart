@@ -10,12 +10,14 @@ _$_AttachmentModel _$$_AttachmentModelFromJson(Map<String, dynamic> json) =>
     _$_AttachmentModel(
       type: $enumDecodeNullable(_$AttachmentTypeEnumMap, json['type']),
       content: json['content'] as String?,
+      id: json['id'] as String?,
     );
 
 Map<String, dynamic> _$$_AttachmentModelToJson(_$_AttachmentModel instance) =>
     <String, dynamic>{
       'type': _$AttachmentTypeEnumMap[instance.type],
       'content': instance.content,
+      'id': instance.id,
     };
 
 const _$AttachmentTypeEnumMap = {

@@ -26,7 +26,7 @@ class _$ChatModelTearOff {
       {String? id,
       UserModel? userA,
       UserModel? userB,
-      int? createdAt,
+      String? createdAt,
       String? messagesListId,
       String? lastMessage}) {
     return _ChatModel(
@@ -52,7 +52,7 @@ mixin _$ChatModel {
   String? get id => throw _privateConstructorUsedError;
   UserModel? get userA => throw _privateConstructorUsedError;
   UserModel? get userB => throw _privateConstructorUsedError;
-  int? get createdAt => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
   String? get messagesListId => throw _privateConstructorUsedError;
   String? get lastMessage => throw _privateConstructorUsedError;
 
@@ -70,7 +70,7 @@ abstract class $ChatModelCopyWith<$Res> {
       {String? id,
       UserModel? userA,
       UserModel? userB,
-      int? createdAt,
+      String? createdAt,
       String? messagesListId,
       String? lastMessage});
 
@@ -111,7 +111,7 @@ class _$ChatModelCopyWithImpl<$Res> implements $ChatModelCopyWith<$Res> {
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       messagesListId: messagesListId == freezed
           ? _value.messagesListId
           : messagesListId // ignore: cast_nullable_to_non_nullable
@@ -156,7 +156,7 @@ abstract class _$ChatModelCopyWith<$Res> implements $ChatModelCopyWith<$Res> {
       {String? id,
       UserModel? userA,
       UserModel? userB,
-      int? createdAt,
+      String? createdAt,
       String? messagesListId,
       String? lastMessage});
 
@@ -200,7 +200,7 @@ class __$ChatModelCopyWithImpl<$Res> extends _$ChatModelCopyWithImpl<$Res>
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       messagesListId: messagesListId == freezed
           ? _value.messagesListId
           : messagesListId // ignore: cast_nullable_to_non_nullable
@@ -235,7 +235,7 @@ class _$_ChatModel with DiagnosticableTreeMixin implements _ChatModel {
   @override
   final UserModel? userB;
   @override
-  final int? createdAt;
+  final String? createdAt;
   @override
   final String? messagesListId;
   @override
@@ -300,7 +300,7 @@ abstract class _ChatModel implements ChatModel {
       {String? id,
       UserModel? userA,
       UserModel? userB,
-      int? createdAt,
+      String? createdAt,
       String? messagesListId,
       String? lastMessage}) = _$_ChatModel;
 
@@ -314,7 +314,7 @@ abstract class _ChatModel implements ChatModel {
   @override
   UserModel? get userB;
   @override
-  int? get createdAt;
+  String? get createdAt;
   @override
   String? get messagesListId;
   @override

@@ -3,7 +3,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tinder/generated/l10n.dart';
 import 'package:tinder/models/tmp_models/chat_model.dart';
 import 'package:tinder/services/auth_service/auth_providers.dart';
+import 'package:tinder/widgets/project_widgets/user_profile/user_profile_widget.dart';
 import 'chats_provider.dart';
+
 part 'chats_list_part.dart';
 
 class ChatsPage extends StatelessWidget {
@@ -11,10 +13,11 @@ class ChatsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chatsList = CustomScrollView(
+    const userWidget = SliverToBoxAdapter(child: UserProfileWidget());
+    const chatsList = CustomScrollView(
       slivers: [
-        SliverAppBar(title: Text(S.of(context).your_chats_ui_string)),
-        const ChatsList(),
+        userWidget,
+        ChatsList(),
       ],
     );
     const selectedChat = Placeholder();
@@ -25,9 +28,9 @@ class ChatsPage extends StatelessWidget {
       child: FractionallySizedBox(
         widthFactor: .5,
         child: Row(
-          children: [
+          children: const [
             Flexible(flex: 2, child: chatsList),
-            const Flexible(flex: 4, child: selectedChat)
+            Flexible(flex: 4, child: selectedChat)
           ],
         ),
       ),

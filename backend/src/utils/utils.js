@@ -5,3 +5,4 @@ function print(...data) {
     console.log(data);
 }
 exports.print = print;
+//# sourceMappingURL=utils.js.map

@@ -13,8 +13,8 @@ class MessageModel with _$MessageModel {
     String? id,
     List<AttachmentModel>? attachments,
     MessageSender? messageSender,
-    int? createdAt,
-    int? updatedAt,
+    String? createdAt,
+    String? updatedAt,
     int? readAt
   }) = _MessageModel;
 

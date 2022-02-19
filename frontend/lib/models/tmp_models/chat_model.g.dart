@@ -14,7 +14,7 @@ _$_ChatModel _$$_ChatModelFromJson(Map<String, dynamic> json) => _$_ChatModel(
       userB: json['user_b'] == null
           ? null
           : UserModel.fromJson(json['user_b'] as Map<String, dynamic>),
-      createdAt: json['created_at'] as int?,
+      createdAt: json['created_at'] as String?,
       messagesListId: json['messages_list_id'] as String?,
       lastMessage: json['last_message'] as String?,
     );

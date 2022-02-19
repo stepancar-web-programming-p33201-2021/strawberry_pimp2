@@ -29,13 +29,91 @@ function router(app) {
                     let uid = decodedToken.uid;
                     const { data, error } = yield supabase.from(constants_1.dbConstants.chatsTable)
                         .select().eq('id', uid);
-                    res.json(data);
+                    res.status(200).json(data !== null && data !== void 0 ? data : []);
                 }));
             }
         }
-        res.json({
-            message: 'Hello World!'
-        });
+    });
+    app.post('/user', (req, res) => {
+        let token = req.headers.authtoken;
+        if (token) {
+            if (typeof token === "string") {
+                (0, firebase_admin_1.auth)().verifyIdToken(token).then((decodedToken) => __awaiter(this, void 0, void 0, function* () {
+                    let uid = decodedToken.uid;
+                    let { data, error } = yield supabase.from(constants_1.dbConstants.usersTable)
+                        .select().eq('uid', uid);
+                    if (!data) {
+                        data = yield createUser(supabase, uid);
+                        res.json(data);
+                    }
+                    else {
+                        res.json(data);
+                    }
+                }));
+            }
+        }
+    });
+    app.post('/user/update_user', (req, res) => {
+        let token = req.headers.authtoken;
+        let userData = req.body.userData;
+        if (token) {
+            if (typeof token === "string") {
+                (0, firebase_admin_1.auth)().verifyIdToken(token).then((decodedToken) => __awaiter(this, void 0, void 0, function* () {
+                    let uid = decodedToken.uid;
+                    const { data, error } = yield supabase.from(constants_1.dbConstants.usersTable).update({}).match({ uid: uid });
+                    if (data) {
+                        res.status(200);
+                    }
+                    else {
+                        res.status(400);
+                    }
+                }));
+            }
+        }
+    });
+    app.post('/chats/update_chat', (req, res) => {
+        let token = req.headers.authtoken;
+        let anotherUid = req.body.aUid;
+        if (token) {
+            if (typeof token === "string") {
+                (0, firebase_admin_1.auth)().verifyIdToken(token).then((decodedToken) => __awaiter(this, void 0, void 0, function* () {
+                    let uid = decodedToken.uid;
+                    const { data, error } = yield supabase.from(constants_1.dbConstants.chatsTable).insert({
+                        user_a: uid,
+                        user_b: anotherUid
+                    });
+                    if (data) {
+                        res.status(200);
+                    }
+                    else {
+                        res.status(400);
+                    }
+                }));
+            }
+        }
+    });
+    app.post('/messages/update_message', (req, res) => {
+        let token = req.headers.authtoken;
+        let anotherUid = req.body.aUid;
+        if (token) {
+            if (typeof token === "string") {
+                (0, firebase_admin_1.auth)().verifyIdToken(token).then((decodedToken) => __awaiter(this, void 0, void 0, function* () {
+                    let uid = decodedToken.uid;
+                    ///parse data from client
+                    ///upload image if everethyng okay
+                    const { data, error } = yield supabase.from(constants_1.dbConstants.chatsTable).insert({
+                        user_a: uid,
+                        user_b: anotherUid
+                    });
+                    if (data) {
+                        res.status(200);
+                    }
+                    else {
+                        res.status(400);
+                    }
+                }));
+            }
+        }
     });
 }
 exports.router = router;
@@ -54,3 +132,16 @@ function checkAuth(req, res, next) {
         res.status(403).send('Unauthorized');
     }
 }
+function createUser(supabase, uid) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const obj = { uid: uid };
+        const { data, error } = yield supabase.from(constants_1.dbConstants.usersTable).insert(obj);
+        return data[0];
+    });
+}
+function updateUser(supabase, user) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { data, error } = yield supabase.from(constants_1.dbConstants.usersTable).update(user);
+    });
+}
+//# sourceMappingURL=router.js.map

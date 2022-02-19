@@ -11,6 +11,7 @@ class AttachmentModel with _$AttachmentModel {
   const factory AttachmentModel({
     AttachmentType? type,
     String? content,
+    String? id,
   }) = _AttachmentModel;
 
   factory AttachmentModel.document(String documentUrl) {

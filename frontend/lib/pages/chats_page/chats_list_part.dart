@@ -8,7 +8,7 @@ class ChatsList extends ConsumerWidget {
     const _loadingIndicator =
         SliverToBoxAdapter(child: CircularProgressIndicator.adaptive());
     final _userId = ref.read(authServiceProvider.notifier).userId;
-    final widget2display = ref.read(chatListProvider).when(
+    final widget2display = ref.watch(chatListProvider).when(
         data: (chatsList) {
           if (chatsList.isEmpty) {
             return SliverToBoxAdapter(
@@ -30,7 +30,7 @@ class ChatsList extends ConsumerWidget {
             ),
           );
         },
-        error: (error, stack) => Text(error.toString()),
+        error: (error, stack) => SliverToBoxAdapter(child: Text(error.toString())),
         loading: () => _loadingIndicator);
     return widget2display;
   }

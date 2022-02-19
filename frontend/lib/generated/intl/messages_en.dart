@@ -20,11 +20,18 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(id) => "Id: ${id}";
+
+  static String m1(nick) => "Nick: ${nick}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("Tinder"),
-        "id_ui_string": MessageLookupByLibrary.simpleMessage("Id: {}"),
-        "nick_ui_string": MessageLookupByLibrary.simpleMessage("Nick: {}"),
+        "closed_account":
+            MessageLookupByLibrary.simpleMessage("Closed account"),
+        "id_ui_string": m0,
+        "nick_ui_string": m1,
+        "open_account": MessageLookupByLibrary.simpleMessage("Open account"),
         "sign_in_anonymous_ui_string":
             MessageLookupByLibrary.simpleMessage("Sign In Anonymously"),
         "sign_in_google_ui_string":

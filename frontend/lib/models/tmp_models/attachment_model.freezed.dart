@@ -22,10 +22,11 @@ AttachmentModel _$AttachmentModelFromJson(Map<String, dynamic> json) {
 class _$AttachmentModelTearOff {
   const _$AttachmentModelTearOff();
 
-  _AttachmentModel call({AttachmentType? type, String? content}) {
+  _AttachmentModel call({AttachmentType? type, String? content, String? id}) {
     return _AttachmentModel(
       type: type,
       content: content,
+      id: id,
     );
   }
 
@@ -41,6 +42,7 @@ const $AttachmentModel = _$AttachmentModelTearOff();
 mixin _$AttachmentModel {
   AttachmentType? get type => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +55,7 @@ abstract class $AttachmentModelCopyWith<$Res> {
   factory $AttachmentModelCopyWith(
           AttachmentModel value, $Res Function(AttachmentModel) then) =
       _$AttachmentModelCopyWithImpl<$Res>;
-  $Res call({AttachmentType? type, String? content});
+  $Res call({AttachmentType? type, String? content, String? id});
 }
 
 /// @nodoc
@@ -69,6 +71,7 @@ class _$AttachmentModelCopyWithImpl<$Res>
   $Res call({
     Object? type = freezed,
     Object? content = freezed,
+    Object? id = freezed,
   }) {
     return _then(_value.copyWith(
       type: type == freezed
@@ -78,6 +81,10 @@ class _$AttachmentModelCopyWithImpl<$Res>
       content: content == freezed
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -90,7 +97,7 @@ abstract class _$AttachmentModelCopyWith<$Res>
           _AttachmentModel value, $Res Function(_AttachmentModel) then) =
       __$AttachmentModelCopyWithImpl<$Res>;
   @override
-  $Res call({AttachmentType? type, String? content});
+  $Res call({AttachmentType? type, String? content, String? id});
 }
 
 /// @nodoc
@@ -108,6 +115,7 @@ class __$AttachmentModelCopyWithImpl<$Res>
   $Res call({
     Object? type = freezed,
     Object? content = freezed,
+    Object? id = freezed,
   }) {
     return _then(_AttachmentModel(
       type: type == freezed
@@ -117,6 +125,10 @@ class __$AttachmentModelCopyWithImpl<$Res>
       content: content == freezed
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
+              as String?,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -128,7 +140,7 @@ class __$AttachmentModelCopyWithImpl<$Res>
 class _$_AttachmentModel
     with DiagnosticableTreeMixin
     implements _AttachmentModel {
-  const _$_AttachmentModel({this.type, this.content});
+  const _$_AttachmentModel({this.type, this.content, this.id});
 
   factory _$_AttachmentModel.fromJson(Map<String, dynamic> json) =>
       _$$_AttachmentModelFromJson(json);
@@ -137,10 +149,12 @@ class _$_AttachmentModel
   final AttachmentType? type;
   @override
   final String? content;
+  @override
+  final String? id;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AttachmentModel(type: $type, content: $content)';
+    return 'AttachmentModel(type: $type, content: $content, id: $id)';
   }
 
   @override
@@ -149,7 +163,8 @@ class _$_AttachmentModel
     properties
       ..add(DiagnosticsProperty('type', 'AttachmentModel'))
       ..add(DiagnosticsProperty('type', type))
-      ..add(DiagnosticsProperty('content', content));
+      ..add(DiagnosticsProperty('content', content))
+      ..add(DiagnosticsProperty('id', id));
   }
 
   @override
@@ -158,14 +173,16 @@ class _$_AttachmentModel
         (other.runtimeType == runtimeType &&
             other is _AttachmentModel &&
             const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.content, content));
+            const DeepCollectionEquality().equals(other.content, content) &&
+            const DeepCollectionEquality().equals(other.id, id));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(content));
+      const DeepCollectionEquality().hash(content),
+      const DeepCollectionEquality().hash(id));
 
   @JsonKey(ignore: true)
   @override
@@ -179,8 +196,8 @@ class _$_AttachmentModel
 }
 
 abstract class _AttachmentModel implements AttachmentModel {
-  const factory _AttachmentModel({AttachmentType? type, String? content}) =
-      _$_AttachmentModel;
+  const factory _AttachmentModel(
+      {AttachmentType? type, String? content, String? id}) = _$_AttachmentModel;
 
   factory _AttachmentModel.fromJson(Map<String, dynamic> json) =
       _$_AttachmentModel.fromJson;
@@ -189,6 +206,8 @@ abstract class _AttachmentModel implements AttachmentModel {
   AttachmentType? get type;
   @override
   String? get content;
+  @override
+  String? get id;
   @override
   @JsonKey(ignore: true)
   _$AttachmentModelCopyWith<_AttachmentModel> get copyWith =>
