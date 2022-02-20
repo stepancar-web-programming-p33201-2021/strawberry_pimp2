@@ -1,5 +1,5 @@
 interface SubscribeCommand {
-    method: WsMethod,
-    params: { [key: string]: string | number | null },
+    method: string,
+    params: string,
     timeout: number
 }
