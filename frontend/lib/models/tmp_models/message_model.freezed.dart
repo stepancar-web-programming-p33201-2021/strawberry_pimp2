@@ -23,12 +23,12 @@ class _$MessageModelTearOff {
   const _$MessageModelTearOff();
 
   _MessageModel call(
-      {String? id,
+      {int? id,
       List<AttachmentModel>? attachments,
       MessageSender? messageSender,
       String? createdAt,
       String? updatedAt,
-      int? readAt}) {
+      String? readAt}) {
     return _MessageModel(
       id: id,
       attachments: attachments,
@@ -49,12 +49,12 @@ const $MessageModel = _$MessageModelTearOff();
 
 /// @nodoc
 mixin _$MessageModel {
-  String? get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   List<AttachmentModel>? get attachments => throw _privateConstructorUsedError;
   MessageSender? get messageSender => throw _privateConstructorUsedError;
   String? get createdAt => throw _privateConstructorUsedError;
   String? get updatedAt => throw _privateConstructorUsedError;
-  int? get readAt => throw _privateConstructorUsedError;
+  String? get readAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -68,12 +68,12 @@ abstract class $MessageModelCopyWith<$Res> {
           MessageModel value, $Res Function(MessageModel) then) =
       _$MessageModelCopyWithImpl<$Res>;
   $Res call(
-      {String? id,
+      {int? id,
       List<AttachmentModel>? attachments,
       MessageSender? messageSender,
       String? createdAt,
       String? updatedAt,
-      int? readAt});
+      String? readAt});
 }
 
 /// @nodoc
@@ -97,7 +97,7 @@ class _$MessageModelCopyWithImpl<$Res> implements $MessageModelCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       attachments: attachments == freezed
           ? _value.attachments
           : attachments // ignore: cast_nullable_to_non_nullable
@@ -117,7 +117,7 @@ class _$MessageModelCopyWithImpl<$Res> implements $MessageModelCopyWith<$Res> {
       readAt: readAt == freezed
           ? _value.readAt
           : readAt // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ));
   }
 }
@@ -130,12 +130,12 @@ abstract class _$MessageModelCopyWith<$Res>
       __$MessageModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? id,
+      {int? id,
       List<AttachmentModel>? attachments,
       MessageSender? messageSender,
       String? createdAt,
       String? updatedAt,
-      int? readAt});
+      String? readAt});
 }
 
 /// @nodoc
@@ -161,7 +161,7 @@ class __$MessageModelCopyWithImpl<$Res> extends _$MessageModelCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       attachments: attachments == freezed
           ? _value.attachments
           : attachments // ignore: cast_nullable_to_non_nullable
@@ -181,7 +181,7 @@ class __$MessageModelCopyWithImpl<$Res> extends _$MessageModelCopyWithImpl<$Res>
       readAt: readAt == freezed
           ? _value.readAt
           : readAt // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ));
   }
 }
@@ -202,7 +202,7 @@ class _$_MessageModel with DiagnosticableTreeMixin implements _MessageModel {
       _$$_MessageModelFromJson(json);
 
   @override
-  final String? id;
+  final int? id;
   @override
   final List<AttachmentModel>? attachments;
   @override
@@ -212,7 +212,7 @@ class _$_MessageModel with DiagnosticableTreeMixin implements _MessageModel {
   @override
   final String? updatedAt;
   @override
-  final int? readAt;
+  final String? readAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -270,18 +270,18 @@ class _$_MessageModel with DiagnosticableTreeMixin implements _MessageModel {
 
 abstract class _MessageModel implements MessageModel {
   const factory _MessageModel(
-      {String? id,
+      {int? id,
       List<AttachmentModel>? attachments,
       MessageSender? messageSender,
       String? createdAt,
       String? updatedAt,
-      int? readAt}) = _$_MessageModel;
+      String? readAt}) = _$_MessageModel;
 
   factory _MessageModel.fromJson(Map<String, dynamic> json) =
       _$_MessageModel.fromJson;
 
   @override
-  String? get id;
+  int? get id;
   @override
   List<AttachmentModel>? get attachments;
   @override
@@ -291,7 +291,7 @@ abstract class _MessageModel implements MessageModel {
   @override
   String? get updatedAt;
   @override
-  int? get readAt;
+  String? get readAt;
   @override
   @JsonKey(ignore: true)
   _$MessageModelCopyWith<_MessageModel> get copyWith =>

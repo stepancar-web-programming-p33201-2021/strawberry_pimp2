@@ -1,4 +1,3 @@
-import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,6 +8,17 @@ import 'package:tinder/widgets/project_widgets/messages/messages_provider.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'dart:html' as html;
 
+import 'package:tinder/widgets/project_widgets/user_profile/user_profile_providers.dart';
+
+final hoverProvider = StateProvider<bool>((ref) {
+  return false;
+});
+
+final filepickercontrollerProvider =
+    StateProvider<DropzoneViewController?>((ref) {
+  return null;
+});
+
 class MessagesScreen extends HookConsumerWidget {
   const MessagesScreen({Key? key}) : super(key: key);
 
@@ -16,15 +26,30 @@ class MessagesScreen extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     const _loader = CircularProgressIndicator.adaptive();
     final controller = useScrollController();
+    final id = ref.watch(selectedChatIdProvider);
+
     return ref.watch(messagesProvider).when(
         data: (data) {
           return Stack(
             children: [
               DropzoneView(
+                onCreated: (DropzoneViewController ctrl) => ref
+                    .read(filepickercontrollerProvider.notifier)
+                    .state = ctrl,
+                onHover: () {
+                  ref.read(hoverProvider.notifier).state = true;
+                },
+                onLeave: () {
+                  ref.read(hoverProvider.notifier).state = false;
+                },
                 onDrop: (dynamic ev) {
+                  ref.read(hoverProvider.notifier).state = false;
+                  // ref.read(inputProvider.notifier).addAttach(ev);
                   print('Drop: $ev');
                 },
                 onDropMultiple: (List<dynamic>? ev) {
+                  ref.read(hoverProvider.notifier).state = false;
+                  ref.read(inputProvider.notifier).addAttachments(ev);
                   print('Drop multiple: $ev');
                 },
               ),
@@ -32,10 +57,60 @@ class MessagesScreen extends HookConsumerWidget {
                 child: CustomScrollView(
                   controller: controller,
                   slivers: [
+                    ACustomSliverHeader(ref),
+                    Consumer(builder: (_, ref, child) {
+                      final input = ref.watch(inputProvider);
+                      final attachments = <Widget>[];
+                      for (final attach in input.other) {
+                        if (attach.type == AttachmentType.image) {
+                          final image = Image.memory(attach.uint8list!);
+                          attachments.add(Stack(
+                            children: [
+                              image,
+                              IconButton(
+                                  onPressed: () {
+                                    ref
+                                        .read(inputProvider.notifier)
+                                        .removeAttach(attach);
+                                  },
+                                  icon: const Icon(Icons.delete)),
+                            ],
+                          ));
+                        }
+                        if (attach.type == AttachmentType.document) {
+                          final splitterParts = attach.content!.split(';');
+                          final tile = ListTile(
+                            title: Text(splitterParts[0]),
+                            leading: IconButton(
+                              onPressed: () {
+                                ref
+                                    .read(inputProvider.notifier)
+                                    .removeAttach(attach);
+                              },
+                              icon: const Icon(Icons.delete),
+                            ),
+                          );
+                          // final image = Image.asset(attach.content!);
+                          attachments.add(tile);
+                        }
+                      }
+                      return SliverToBoxAdapter(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (input.textAttach?.content != null)
+                              Text('Message: ${input.textAttach!.content!}'),
+                            if ((input.other).isNotEmpty) ...attachments
+                          ],
+                        ),
+                      );
+                    }),
                     if (data.isEmpty)
-                      const SliverFillRemaining(
+                      SliverFillRemaining(
                         child: Center(
-                            child: Text('Looks like there is no messages')),
+                            child: Text(
+                                'Looks like there is no messages in chat with id :: $id')),
                       ),
                     SliverList(
                         delegate: SliverChildBuilderDelegate(
@@ -61,6 +136,14 @@ class MessagesScreen extends HookConsumerWidget {
                                       .read(inputProvider.notifier)
                                       .downloadFile(splitterParts);
                                 },
+                              );
+                              // final image = Image.asset(attach.content!);
+                              attachments.add(tile);
+                            }
+                            if (attach.type == AttachmentType.text) {
+                             final tile = ListTile(
+                                title: SelectableText(attach.content!),
+
                               );
                               // final image = Image.asset(attach.content!);
                               attachments.add(tile);
@@ -123,10 +206,33 @@ class MessagesScreen extends HookConsumerWidget {
                       },
                       childCount: data.length,
                     )),
-                    ACustomSliverHeader(ref)
                   ],
                 ),
               ),
+              Consumer(
+                builder: (context, ref, child) {
+                  final hover = ref.watch(hoverProvider);
+                  Widget body;
+                  if (!hover) {
+                    body = const SizedBox.square(dimension: 0);
+                  } else {
+                    body = Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          border: Border.all(
+                              color: Colors.black,
+                              width: 1,
+                              style: BorderStyle.solid),
+                          borderRadius: BorderRadius.circular(16)),
+                      child: const Center(
+                        child: Text('Drop your weapons'),
+                      ),
+                    );
+                  }
+                  return AnimatedSwitcher(
+                      duration: kThemeAnimationDuration, child: body);
+                },
+              )
             ],
           );
         },
@@ -145,9 +251,50 @@ class InputNotifier extends StateNotifier<InputState> {
   InputNotifier(this.ref) : super(const InputState());
   StateNotifierProviderRef ref;
 
+  void clear() {
+    state = const InputState();
+  }
+
   void downloadFile(List<String> parts) {
     openInANewTab(parts[1]);
     // FileSaver.instance.saveFile(parts[0], Uint8List bytes);
+  }
+
+  void removeAttach(AttachmentModel model) {
+    final oldList = state.other.toList();
+    oldList.remove(model);
+    state = state.copyWith(other: oldList);
+  }
+
+  Future<void> addAttach(dynamic file) async {
+    final controller = ref.read(filepickercontrollerProvider);
+    final name = await controller?.getFilename(file);
+    final data = await controller?.getFileData(file);
+    final mime = await controller?.getFileMIME(file);
+    AttachmentModel? model;
+    if (name != null && data != null && mime != null) {
+      final isImage = mime.contains('image');
+      if (isImage) {
+        model = AttachmentModel.imageUint(name, data);
+      } else {
+        model = AttachmentModel.document(name, data);
+      }
+    }
+    if (model != null) {
+      final oldList = state.other.toList();
+      oldList.add(model);
+      state = state.copyWith(other: oldList);
+    }
+
+    print(file);
+  }
+
+  void addAttachments(List<dynamic>? files) {
+    if (files != null) {
+      for (var file in files) {
+        addAttach(file);
+      }
+    }
   }
 
   openInANewTab(url) {
@@ -188,9 +335,22 @@ class Delegate extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: Colors.lightGreen.shade200,
-      child: TextField(onChanged: (data) {
-        ref.read(inputProvider.notifier).updateMessage(data);
-      }),
+      child: Row(
+        children: [
+          Flexible(
+            child: TextField(onChanged: (data) {
+              ref.read(inputProvider.notifier).updateMessage(data);
+            }),
+          ),
+          Consumer(builder: (context, ref, child) {
+            final input = ref.watch(userProfileControllerProvider.notifier);
+            return IconButton(
+              onPressed: input.sendMessage,
+              icon: const Icon(Icons.send),
+            );
+          })
+        ],
+      ),
     );
   }
 

@@ -24,6 +24,7 @@ class ChatsList extends ConsumerWidget {
                   title: Text(
                     "Chat with ${chat.anotherUser(_userId).nick}",
                   ),
+                  subtitle: Text('Chat id:: ${chat.id}'),
                   onTap: () {
                     ref.read(selectedChatIdProvider.notifier).state = chat.id;
                   },

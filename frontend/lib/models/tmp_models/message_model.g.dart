@@ -8,7 +8,7 @@ part of 'message_model.dart';
 
 _$_MessageModel _$$_MessageModelFromJson(Map<String, dynamic> json) =>
     _$_MessageModel(
-      id: json['id'] as String?,
+      id: json['id'] as int?,
       attachments: (json['attachments'] as List<dynamic>?)
           ?.map((e) => AttachmentModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -16,7 +16,7 @@ _$_MessageModel _$$_MessageModelFromJson(Map<String, dynamic> json) =>
           $enumDecodeNullable(_$MessageSenderEnumMap, json['message_sender']),
       createdAt: json['created_at'] as String?,
       updatedAt: json['updated_at'] as String?,
-      readAt: json['read_at'] as int?,
+      readAt: json['read_at'] as String?,
     );
 
 Map<String, dynamic> _$$_MessageModelToJson(_$_MessageModel instance) =>

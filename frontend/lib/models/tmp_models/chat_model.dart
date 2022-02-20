@@ -24,7 +24,7 @@ class ChatModel with _$ChatModel {
 
 extension F on ChatModel {
   UserModel anotherUser(String currentUid) {
-    if (userA!.nick == currentUid) {
+    if (userA!.uid == currentUid) {
       return userB!;
     } else {
       return userA!;

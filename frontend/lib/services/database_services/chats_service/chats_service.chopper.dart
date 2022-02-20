@@ -17,16 +17,32 @@ class _$ChatsService extends ChatsService {
   final definitionType = ChatsService;
 
   @override
-  Future<Response<List<ChatModel>>> getChats() {
+  Future<Response<List<ChatModel>>> chats() {
     final $url = '/chats';
     final $request = Request('POST', $url, client.baseUrl);
     return client.send<List<ChatModel>, ChatModel>($request);
   }
 
   @override
-  Future<Response<dynamic>> createChat(String anotherUid) {
+  Future<Response<List<MessageModel>>> messages(int chatId) {
+    final $url = '/chats/messages';
+    final $body = <String, dynamic>{'chatId': chatId};
+    final $request = Request('POST', $url, client.baseUrl, body: $body);
+    return client.send<List<MessageModel>, MessageModel>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> updateChat(String anotherUid) {
     final $url = '/chats/update_chat';
     final $body = <String, dynamic>{'anotherUid': anotherUid};
+    final $request = Request('POST', $url, client.baseUrl, body: $body);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> updateMessage(int chatId, MessageModel message) {
+    final $url = '/chats/update_message';
+    final $body = <String, dynamic>{'chatId': chatId, 'message': message};
     final $request = Request('POST', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request);
   }

@@ -8,17 +8,28 @@ part of 'attachment_model.dart';
 
 _$_AttachmentModel _$$_AttachmentModelFromJson(Map<String, dynamic> json) =>
     _$_AttachmentModel(
-      type: $enumDecodeNullable(_$AttachmentTypeEnumMap, json['type']),
+      type: $enumDecode(_$AttachmentTypeEnumMap, json['type']),
       content: json['content'] as String?,
-      id: json['id'] as String?,
+      id: json['id'] as int?,
+      uint8list: uFromJson(json['uint8list']),
     );
 
-Map<String, dynamic> _$$_AttachmentModelToJson(_$_AttachmentModel instance) =>
-    <String, dynamic>{
-      'type': _$AttachmentTypeEnumMap[instance.type],
-      'content': instance.content,
-      'id': instance.id,
-    };
+Map<String, dynamic> _$$_AttachmentModelToJson(_$_AttachmentModel instance) {
+  final val = <String, dynamic>{
+    'type': _$AttachmentTypeEnumMap[instance.type],
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('content', instance.content);
+  writeNotNull('id', instance.id);
+  writeNotNull('uint8list', uint8toJson(instance.uint8list));
+  return val;
+}
 
 const _$AttachmentTypeEnumMap = {
   AttachmentType.document: 'document',

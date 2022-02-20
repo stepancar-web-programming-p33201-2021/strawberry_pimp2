@@ -4,6 +4,7 @@ import 'package:chopper/chopper.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tinder/main.dart';
 import 'package:tinder/models/tmp_models/chat_model.dart';
+import 'package:tinder/models/tmp_models/message_model.dart';
 import 'package:tinder/models/tmp_models/user_model.dart';
 import 'package:tinder/services/auth_service/auth_providers.dart';
 import 'package:tinder/services/database_services/chats_service/chats_service.dart';
@@ -24,6 +25,7 @@ final chopperProvider = Provider<ChopperClient>((ref) {
     converter: JsonToTypeConverter({
       UserModel: (json) => UserModel.fromJson(json),
       ChatModel: (json) => ChatModel.fromJson(json),
+      MessageModel: (json) => MessageModel.fromJson(json),
     }),
   );
 });

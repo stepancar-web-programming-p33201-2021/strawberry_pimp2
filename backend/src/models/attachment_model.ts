@@ -1,7 +1,9 @@
-enum AttachmentType { document, text, image, sticker }
+enum AttachmentType { document='document', text = 'text', image='image' }
 
 interface AttachmentModel {
-    type: AttachmentType,
-    content: string,
-    id: string
+    type: string,
+    content?: string,
+    uint8list?: number[]
+    id?: number,
+    message_id?: number,
 }

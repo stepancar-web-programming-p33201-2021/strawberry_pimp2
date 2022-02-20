@@ -10,12 +10,12 @@ part 'message_model.g.dart';
 class MessageModel with _$MessageModel {
   @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory MessageModel({
-    String? id,
+    int? id,
     List<AttachmentModel>? attachments,
     MessageSender? messageSender,
     String? createdAt,
     String? updatedAt,
-    int? readAt
+    String? readAt
   }) = _MessageModel;
 
   factory MessageModel.fromJson(Map<String, dynamic> json) =>

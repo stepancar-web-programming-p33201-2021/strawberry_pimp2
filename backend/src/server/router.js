@@ -8,14 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 const firebase_admin_1 = require("firebase-admin");
 const supabase_js_1 = require("@supabase/supabase-js");
 const constants_1 = require("../utils/constants");
+const express_fileupload_1 = __importDefault(require("express-fileupload"));
 function router(app) {
     const supabase = (0, supabase_js_1.createClient)(constants_1.dbConstants.supabaseUrl, process.env.SUPA_SECRET);
     app.use('/', checkAuth);
+    app.use((0, express_fileupload_1.default)({
+        limits: { fileSize: 50 * 1024 * 1024 },
+    }));
     app.get('/', (req, res) => {
         res.json({
             message: 'Hello World!'
@@ -31,19 +38,21 @@ function router(app) {
                     const { data, error } = yield supabase.from(constants_1.dbConstants.chatsTable)
                         .select().or('user_a.eq.' + tUid + ',user_b.eq.' + tUid);
                     let list = [];
-                    for (let i = 0; i < data.length; i++) {
-                        let el = data[i];
-                        let userA = yield getUserByInternalId(supabase, el.user_a);
-                        let userB = yield getUserByInternalId(supabase, el.user_b);
-                        let chatModel = {
-                            id: el.id,
-                            created_at: el.created_at,
-                            user_a: userA,
-                            user_b: userB,
-                            messages_list_id: el.messages_list_id,
-                            last_message: el.last_message,
-                        };
-                        list.push(chatModel);
+                    if (data) {
+                        for (let i = 0; i < data.length; i++) {
+                            let el = data[i];
+                            let userA = yield getUserByInternalId(supabase, el.user_a);
+                            let userB = yield getUserByInternalId(supabase, el.user_b);
+                            let chatModel = {
+                                id: el.id,
+                                created_at: el.created_at,
+                                user_a: userA,
+                                user_b: userB,
+                                messages_list_id: el.messages_list_id,
+                                last_message: el.last_message,
+                            };
+                            list.push(chatModel);
+                        }
                     }
                     res.status(200).json(list);
                 }));
@@ -110,25 +119,91 @@ function router(app) {
             }
         }
     });
-    app.post('/messages/update_message', (req, res) => {
+    app.post('/chats/messages', (req, res) => {
         let token = req.headers.authtoken;
-        let anotherUid = req.body.aUid;
+        let chatId = req.body.chatId;
+        if (token) {
+            if (typeof token === "string") {
+                (0, firebase_admin_1.auth)().verifyIdToken(token).then((decodedToken) => __awaiter(this, void 0, void 0, function* () {
+                    let uid = decodedToken.uid;
+                    let tUid = yield getTrueId(supabase, uid);
+                    let rawMessages = yield messages(supabase, chatId);
+                    let userFiendlyMessages = [];
+                    if (rawMessages.length > 0) {
+                        for (let i = 0; i < rawMessages.length; i++) {
+                            let rawMessage = rawMessages[i];
+                            let rawAttachments = yield attachments(supabase, rawMessage.id);
+                            if (rawAttachments.length > 0) {
+                                rawAttachments.forEach(function (p1, p2, p3) {
+                                    p1.message_id = null;
+                                }, undefined);
+                                let message = {
+                                    attachments: rawAttachments,
+                                    id: rawMessage.id,
+                                    created_at: rawMessage.created_at,
+                                    read_at: rawMessage.read_at,
+                                    updated_at: rawMessage.updated_at,
+                                    message_sender: rawMessage.message_sender_id == tUid ? 'a' : 'b',
+                                };
+                                userFiendlyMessages.push(message);
+                            }
+                        }
+                    }
+                    // const {data, error} = await supabase.from(dbConstants.chatsTable)
+                    //     .select().or('user_a.eq.' + tUid + ',user_b.eq.' + tUid);
+                    let list = [];
+                    res.status(200).json(userFiendlyMessages);
+                }));
+            }
+        }
+    });
+    app.post('/chats/update_message', (req, res) => {
+        let token = req.headers.authtoken;
+        let chatId = req.body.chatId;
+        let rawMessage = req.body.message;
+        let message = req.body.message;
+        // let files = req.files;
         if (token) {
             if (typeof token === "string") {
                 (0, firebase_admin_1.auth)().verifyIdToken(token).then((decodedToken) => __awaiter(this, void 0, void 0, function* () {
                     let uid = decodedToken.uid;
                     ///parse data from client
-                    ///upload image if everethyng okay
-                    const { data, error } = yield supabase.from(constants_1.dbConstants.chatsTable).insert({
-                        user_a: uid,
-                        user_b: anotherUid
-                    });
-                    if (data) {
-                        res.status(200);
+                    let id = yield getTrueId(supabase, uid);
+                    let messageBase = yield createMessage(supabase, id, chatId);
+                    let attachments = message.attachments;
+                    if (attachments.length > 0) {
+                        for (let i = 0; i < attachments.length; i++) {
+                            let attachment = attachments[i];
+                            attachment.message_id = messageBase.id;
+                            // if (attachment.type != AttachmentType.text) {
+                            //     let numberList: number[] = attachment.uint8list!;
+                            //     let uint = Uint8Array.from(numberList);
+                            //     const {data, error} = await supabase.storage
+                            //         .from('users')
+                            //         .upload(id + '/files/' + chatId + '/' + Date.now() + '_' + attachment.content, uint);
+                            //     console.log(data);
+                            // }
+                        }
+                    }
+                    let uploadedAttachments = yield createAttachments(supabase, attachments);
+                    if (uploadedAttachments.length > 0) {
+                        res.status(200).send();
                     }
                     else {
-                        res.status(400);
+                        res.status(400).send();
                     }
+                    // const {data, error} = await supabase.from(dbConstants.attachmentsTable).insert({
+                    //     user_a: uid,
+                    //     user_b: anotherUid
+                    // });
+                    ///0. create if no list id message and upload it to chat object
+                    ///1. upload attachments
+                    ///2. upload message
+                    ///upload image if everethyng okay
+                    // const {data, error} = await supabase.from(dbConstants.chatsTable).insert({
+                    //     user_a: uid,
+                    //     user_b: anotherUid
+                    // });
                 }));
             }
         }
@@ -178,6 +253,30 @@ function createUser(supabase, uid) {
 function updateUser(supabase, user) {
     return __awaiter(this, void 0, void 0, function* () {
         const { data, error } = yield supabase.from(constants_1.dbConstants.usersTable).update(user);
+    });
+}
+function createMessage(supabase, id, chatId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let { data, error } = yield supabase.from(constants_1.dbConstants.messagesTable).insert({ message_sender_id: id, chat_id: chatId });
+        return data[0];
+    });
+}
+function messages(supabase, chatId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let { data, error } = yield supabase.from(constants_1.dbConstants.messagesTable).select().match({ chat_id: chatId });
+        return data !== null && data !== void 0 ? data : [];
+    });
+}
+function attachments(supabase, messageId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let { data, error } = yield supabase.from(constants_1.dbConstants.attachmentsTable).select().match({ message_id: messageId });
+        return data !== null && data !== void 0 ? data : [];
+    });
+}
+function createAttachments(supabase, attachments) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let { data, error } = yield supabase.from(constants_1.dbConstants.attachmentsTable).insert(attachments);
+        return data !== null && data !== void 0 ? data : [];
     });
 }
 //# sourceMappingURL=router.js.map
