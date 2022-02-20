@@ -76905,7 +76905,7 @@ r.a19(null)
 s=new A.TX()
 s.a1a(null)
 s=A.a([r,s],t.Bm)
-return A.aN2("wss://localhost:999",new A.aa3(A.ag([B.a5G,new A.at2(),B.a50,new A.at3(),B.a5l,new A.at4()],t.n,t._8)),[B.EO],s)},
+return A.aN2("https://ad17cdebe91b.ngrok.io",new A.aa3(A.ag([B.a5G,new A.at2(),B.a50,new A.at3(),B.a5l,new A.at4()],t.n,t._8)),[B.EO],s)},
 $S:506}
 A.at2.prototype={
 $1(a){return A.awV(a)},
