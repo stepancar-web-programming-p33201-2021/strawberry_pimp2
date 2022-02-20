@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tinder/pages/chats_page/chats_provider.dart';
 import 'package:tinder/utils/constants.dart';
 import 'package:tinder/widgets/project_widgets/messages/messages_provider.dart';
 import 'package:tinder/widgets/project_widgets/user_profile/user_profile_providers.dart';
@@ -47,7 +48,7 @@ class UserProfileWidget extends HookConsumerWidget {
               ListTile(
                 title: Text('update chats list'),
                 onTap: () {
-                  ref.refresh(messagesProvider);
+                  ref.refresh(chatListProvider);
                 },
               ),
             ],

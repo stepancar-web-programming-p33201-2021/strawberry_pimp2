@@ -123,12 +123,12 @@ class MessagesScreen extends HookConsumerWidget {
                         final attachments = <Widget>[];
                         if (message.attachments != null) {
                           for (final attach in message.attachments!) {
+                            final splitterParts = attach.content!.split(';');
                             if (attach.type == AttachmentType.image) {
-                              final image = Image.asset(attach.content!);
+                              final image = Image.network(splitterParts[0]);
                               attachments.add(image);
                             }
                             if (attach.type == AttachmentType.document) {
-                              final splitterParts = attach.content!.split(';');
                               final tile = ListTile(
                                 title: Text(splitterParts[0]),
                                 onTap: () async {
@@ -141,9 +141,8 @@ class MessagesScreen extends HookConsumerWidget {
                               attachments.add(tile);
                             }
                             if (attach.type == AttachmentType.text) {
-                             final tile = ListTile(
+                              final tile = ListTile(
                                 title: SelectableText(attach.content!),
-
                               );
                               // final image = Image.asset(attach.content!);
                               attachments.add(tile);
@@ -256,7 +255,7 @@ class InputNotifier extends StateNotifier<InputState> {
   }
 
   void downloadFile(List<String> parts) {
-    openInANewTab(parts[1]);
+    openInANewTab(parts[0]);
     // FileSaver.instance.saveFile(parts[0], Uint8List bytes);
   }
 

@@ -7,6 +7,7 @@ import 'package:tinder/pages/chats_page/chats_provider.dart';
 import 'package:tinder/services/chopper_service/chopper_provider.dart';
 import 'package:tinder/services/database_services/chats_service/chats_service.dart';
 import 'package:tinder/services/database_services/users_service/users_service.dart';
+import 'package:tinder/services/supabase_service/supabase_service.dart';
 import 'package:tinder/widgets/project_widgets/messages/message_screen.dart';
 import 'package:tinder/widgets/project_widgets/messages/messages_provider.dart';
 
@@ -56,28 +57,44 @@ class UserProfileNotifier extends StateNotifier<LoadingState> {
     }
   }
 
-  void sendMessage() {
+  Future<void> sendMessage() async {
     final id = ref.read(selectedChatIdProvider);
     final input = ref.read(inputProvider);
     if (id == null || input.isEmpty || state.isLoading) {
       return;
     }
+    state = const LoadingState.loading();
+    final client = ref.read(supabaseProvider).value!;
+    final user = ref.read(userProfileProvider).value!;
+    final attaches = [];
+    for (var attach in input.other) {
+      final name =
+          DateTime.now().millisecondsSinceEpoch.toString() + attach.content!;
+      final storageResponse = await client.storage
+          .from('users')
+          .uploadBinary(user.uid! + '/' + name, attach.uint8list!);
+      print(storageResponse.error);
+      final url = client.storage
+          .from('users')
+          .getPublicUrl(user.uid! + '/' + name)
+          .data;
+      final content = url! + ";" + name;
+      attaches.add(attach.copyWith(content: content, uint8list: null));
+    }
+
     final chatsService = ref.read(chopperProvider).getService<ChatsService>();
     final message = MessageModel(attachments: [
       if (input.textAttach != null) input.textAttach!,
-      ...input.other,
+      ...attaches,
     ]);
     final task = chatsService.updateMessage(id, message);
-    state = const LoadingState.loading();
-    task
-        .then((response) {
-          ref.read(inputProvider.notifier).clear();
-          state = const LoadingState.complete();
-        })
-        .catchError((e) {
-          state = LoadingState.error(e.toString());
-        })
-        .then((value) => ref.refresh(messagesProvider));
+
+    task.then((response) {
+      ref.read(inputProvider.notifier).clear();
+      state = const LoadingState.complete();
+    }).catchError((e) {
+      state = LoadingState.error(e.toString());
+    }).then((value) => ref.refresh(messagesProvider));
   }
 
   void changeAccountType(bool? value) async {
