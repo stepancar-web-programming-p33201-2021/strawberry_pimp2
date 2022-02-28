@@ -6,7 +6,7 @@ const supabasePublicKey =
 const supabasePublicUrl = '''https://ivxeiirknoyyksstixwg.supabase.co''';
 
 const host = '''localhost''';
-const serverLink = '''https://8146ff7c4b89.ngrok.io''';
+const serverLink = '''https://8bcf1a0b9198.ngrok.io''';
 const wsServerLink = '''wss://localhost:8999''';
 const authTokenKeyword = 'authtoken';
 
